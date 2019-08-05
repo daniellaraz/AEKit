@@ -23,12 +23,12 @@ app.layout = html.Div([
         ], id='subject'),
 
     html.Div([
-        html.Img(src='/assets/woman2.jpg', className='result1', key='0.9')
+        html.Img(src='/assets/woman2.jpg', className='result1', key='0.4')
         ], id='result1'),
 
     html.Div([
         html.Img(src='/assets/woman3.jpg')
-        ]),
+        ], id='result2'),
 
 
 
@@ -48,6 +48,14 @@ app.layout = html.Div([
 ])
 @app.callback(
     dash.dependencies.Output('result1', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold/5 == 0.4:
+        return {"border":"2px red solid"}
+    else:
+        return {"border":"2px black solid"}
+@app.callback(
+    dash.dependencies.Output('result2', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
     if threshold/5 == 0.4:
