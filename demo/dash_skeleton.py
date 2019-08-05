@@ -6,7 +6,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 
-app = dash.Dash()
+app = dash.Dash(__name__)
 
 
 app.layout = html.Div([
@@ -20,54 +20,42 @@ app.layout = html.Div([
 
     html.Div([
         html.Img(src='/assets/woman1.jpg')
-        ]),
+        ], id='subject'),
 
     html.Div([
-        html.Img(src='/assets/woman2.jpg')
-        ]),
+        html.Img(src='/assets/woman2.jpg', className='result1', key='0.9')
+        ], id='result1'),
 
     html.Div([
         html.Img(src='/assets/woman3.jpg')
         ]),
 
 
-     html.Div([
-        dcc.Upload(
-        id='upload-data',
-        children=html.Div([
-            'Drag and Drop or ',
-            html.A('Select Files')
-        ]),
-        style={
-            'width': '100%',
-            'height': '60px',
-            'lineHeight': '60px',
-            'borderWidth': '1px',
-            'borderStyle': 'dashed',
-            'borderRadius': '5px',
-            'textAlign': 'center',
-            'margin': '10px'
-        },
-        # Allow multiple files to be uploaded
-        multiple=True
-    ),
-    html.Div(id='output-data-upload'),
-
-      ]),
 
     html.Div([
         dcc.Slider(
-        min=-5,
-        max=10,
-        marks={i: 'Label {}'.format(i) for i in range(10)},
-        value=-3
-
+        id='threshold-slider',
+        min=0,
+        max=5,
+        marks={i: str(i/5) for i in range(0, 6)},
+        value=1,
     ),
-
+     html.Div(id='slider-output-container')
     ]),
 
 
+
 ])
+@app.callback(
+    dash.dependencies.Output('result1', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold/5 == 0.4:
+        return {"border":"2px red solid"}
+    else:
+        return {"border":"2px black solid"}
+
+
 
 
 if __name__ == '__main__':
