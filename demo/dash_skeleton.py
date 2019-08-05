@@ -16,21 +16,20 @@ app.layout = html.Div([
 
      ]),
 
-
-
     html.Div([
         html.Img(src='/assets/woman1.jpg')
         ], id='subject'),
 
     html.Div([
-        html.Img(src='/assets/woman2.jpg', className='result1', key='0.4')
-        ], id='result1'),
+        html.Div([
+            html.Img(src='/assets/woman2.jpg', key='0.4', className='img1')
+            ], id='result1', className='result1'),
 
-    html.Div([
-        html.Img(src='/assets/woman3.jpg')
-        ], id='result2'),
-
-
+        html.Div([
+            html.Img(src='/assets/woman3.jpg', className='img2')
+            ], id='result2', className = 'result2'),
+            ],
+            className = 'box'),
 
     html.Div([
         dcc.Slider(
@@ -40,8 +39,9 @@ app.layout = html.Div([
         marks={i: str(i/5) for i in range(0, 6)},
         value=1,
     ),
-     html.Div(id='slider-output-container')
+     html.Div(id='slider-output-container', className = 'slider')
     ]),
+
 
 
 
@@ -50,7 +50,7 @@ app.layout = html.Div([
     dash.dependencies.Output('result1', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold/5 == 0.4:
+    if threshold/5 >=0.4:
         return {"border":"2px red solid"}
     else:
         return {"border":"2px black solid"}
@@ -58,7 +58,7 @@ def update_output(threshold):
     dash.dependencies.Output('result2', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold/5 == 0.4:
+    if threshold/5 >= 0.2:
         return {"border":"2px red solid"}
     else:
         return {"border":"2px black solid"}

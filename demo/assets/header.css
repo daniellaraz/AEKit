@@ -1,0 +1,22 @@
+.result1{
+
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
+.result2{
+
+    height: 200px;
+    width: 200px;
+}
+
+.img1, .img2{
+    width: 200px;
+    height: 200px;
+}
+
+.slider{
+    position: relative;
+    float: right;
+}
