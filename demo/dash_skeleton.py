@@ -18,21 +18,43 @@ app.layout = html.Div([
     html.Div([
 
     html.Div([
-        html.Img(src='/assets/woman1.jpg')
+        html.Img(src='/assets/LeBron_James_0002.jpg')
         ], id='subject'),
 
     html.Div([
         html.Div([
-            html.Img(src='/assets/woman2.jpg', key='0.4', id='img1')
+            html.Img(src='/assets/Jacqueline_Edwards_0001.jpg', key='0.4', id='img1')
             ], id='result1', className='result1'),
 
         html.Div([
-            html.Img(src='/assets/woman3.jpg', id='img2')
+            html.Img(src='/assets/Jason_Campbell_0001.jpg', id='img2')
             ], id='result2', className = 'result2'),
+        html.Div([
+            html.Img(src='/assets/Jennette_Bradley_0001.jpg', id='img3')
+            ], id='result3', className = 'result3'),
+        html.Div([
+            html.Img(src='/assets/Julian_Battle_0001.jpg', id='img4')
+            ], id='result4', className = 'result4'),
+        html.Div([
+            html.Img(src='/assets/Julius_Erving_0001.jpg', id='img5')
+            ], id='result5', className = 'result5'),
+        html.Div([
+            html.Img(src='/assets/Kelli_White_0002.jpg', id='img6')
+            ], id='result6', className = 'result6'),
+        html.Div([
+            html.Img(src='/assets/Kobe_Bryant_0003.jpg', id='img7')
+            ], id='result7', className = 'result7'),
+        html.Div([
+            html.Img(src='/assets/Kwame_Kilpatrick_0001.jpg', id='img8')
+            ], id='result8', className = 'result8'),
+        html.Div([
+            html.Img(src='/assets/Larry_Thompson_0001.jpg', id='img9')
+            ], id='result9', className = 'result9'),
+        html.Div([
+            html.Img(src='/assets/Marquis_Estill_0001.jpg', id='img10')
+            ], id='result10', className = 'result10'),
             ],
             className = 'box'),
-
-
 
 
 ], id='main_wrapper'),

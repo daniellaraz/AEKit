@@ -12,11 +12,18 @@
     margin-left: 320px;
 }
 
-#result1, #result2, #img1, #img2 {
+#result1, #result2, #result3, #result4, #result5, #result6, #result7, #result8, #result9, #result10 {
   display: inline;
-  margin: 0 10px;
-  width: 200px;
-  height: 200px;
+  margin: 5px 10px;
+  width: 150px;
+  height: 150px;
+}
+
+#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8, #img9, #img10 {
+  display: inline;
+  margin: 5px 10px;
+  width: 150px;
+  height: 150px;
 }
 
 #slider-output-container {
