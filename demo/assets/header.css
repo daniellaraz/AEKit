@@ -1,22 +1,24 @@
-.result1{
-
-    height: 200px;
-    width: 200px;
-    position: relative;
+.main_wrapper {
+    width : 100%;
+    overflow: hidden;
+}
+#subject {
+    width: 300px;
+    float: left;
+    display: inline;
 }
 
-.result2{
-
-    height: 200px;
-    width: 200px;
+.box {
+    margin-left: 320px;
 }
 
-.img1, .img2{
-    width: 200px;
-    height: 200px;
+#result1, #result2, #img1, #img2 {
+  display: inline;
+  margin: 0 10px;
+  width: 200px;
+  height: 200px;
 }
 
-.slider{
-    position: relative;
-    float: right;
+#slider-output-container {
+    margin-top: 200px;
 }

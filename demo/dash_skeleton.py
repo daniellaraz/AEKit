@@ -13,8 +13,9 @@ app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition Bias Demo', id='title'),
         html.P('Welcome to our facial recognition demo. Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.vWelcome to our facial recognition demo.vWelcome to our facial recognition demo.v', id='intro')
-
      ]),
+
+    html.Div([
 
     html.Div([
         html.Img(src='/assets/woman1.jpg')
@@ -22,15 +23,19 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.Img(src='/assets/woman2.jpg', key='0.4', className='img1')
+            html.Img(src='/assets/woman2.jpg', key='0.4', id='img1')
             ], id='result1', className='result1'),
 
         html.Div([
-            html.Img(src='/assets/woman3.jpg', className='img2')
+            html.Img(src='/assets/woman3.jpg', id='img2')
             ], id='result2', className = 'result2'),
             ],
             className = 'box'),
 
+
+
+
+], id='main_wrapper'),
     html.Div([
         dcc.Slider(
         id='threshold-slider',
@@ -38,30 +43,26 @@ app.layout = html.Div([
         max=5,
         marks={i: str(i/5) for i in range(0, 6)},
         value=1,
-    ),
-     html.Div(id='slider-output-container', className = 'slider')
-    ]),
-
-
-
-
+    )],
+     id='slider-output-container', className = 'slider'
+    )
 ])
 @app.callback(
-    dash.dependencies.Output('result1', 'style'),
+    dash.dependencies.Output('img1', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
     if threshold/5 >=0.4:
-        return {"border":"2px red solid"}
+        return {"border":"10px red solid"}
     else:
-        return {"border":"2px black solid"}
+        return {"border":"10px black solid"}
 @app.callback(
-    dash.dependencies.Output('result2', 'style'),
+    dash.dependencies.Output('img2', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
     if threshold/5 >= 0.2:
-        return {"border":"2px red solid"}
+        return {"border":"10px red solid"}
     else:
-        return {"border":"2px black solid"}
+        return {"border":"10px black solid"}
 
 
 
