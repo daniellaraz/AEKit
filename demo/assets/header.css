@@ -6,10 +6,11 @@
     width: 300px;
     float: left;
     display: inline;
+    margin-left: 20px;
 }
 
 .box {
-    margin-left: 320px;
+    margin-left: 350px;
 }
 
 #result1, #result2, #result3, #result4, #result5, #result6, #result7, #result8, #result9, #result10 {
@@ -27,5 +28,7 @@
 }
 
 #slider-output-container {
-    margin-top: 200px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
 }

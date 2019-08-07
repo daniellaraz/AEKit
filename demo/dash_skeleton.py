@@ -69,22 +69,106 @@ app.layout = html.Div([
      id='slider-output-container', className = 'slider'
     )
 ])
+#Jacqueline_Edwards_0001 0.819
 @app.callback(
     dash.dependencies.Output('img1', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold/5 >=0.4:
+    if threshold >=0.819:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
+
+#Jason_Campbell_0001 0.806
 @app.callback(
     dash.dependencies.Output('img2', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold/5 >= 0.2:
+    if threshold >= 0.806:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
+
+#Jennette_Bradley_0001 0.977
+@app.callback(
+    dash.dependencies.Output('img3', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.977:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Julian_Battle_0001 0.655
+@app.callback(
+    dash.dependencies.Output('img4', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.655:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Julius_Erving_0001 0.724
+@app.callback(
+    dash.dependencies.Output('img5', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.724:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Kelli_White_0002 0.919
+@app.callback(
+    dash.dependencies.Output('img6', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.919:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Kobe_Bryant_0003 0.825
+@app.callback(
+    dash.dependencies.Output('img7', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.825:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Kwame_Kilpatrick_0001 0.442
+@app.callback(
+    dash.dependencies.Output('img8', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.442:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Larry_Thompson_0001 0.151
+@app.callback(
+    dash.dependencies.Output('img9', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.151:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#Marquis_Estill_0001 0.719
+@app.callback(
+    dash.dependencies.Output('img10', 'style'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(threshold):
+    if threshold >= 0.719:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
 
 
 
