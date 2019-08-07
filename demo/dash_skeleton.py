@@ -8,6 +8,8 @@ import plotly.graph_objs as go
 
 app = dash.Dash(__name__)
 
+#read in csv for subject
+results = pd.read_csv('/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv'),
 
 
 app.layout = html.Div([
@@ -27,7 +29,7 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.Img(src='/assets/Jacqueline_Edwards_0001.jpg', key='0.4', id='img1')
+            html.Img(src='/assets/Jacqueline_Edwards_0001.jpg', id='img1')
             ], id='result1', className='result1'),
 
         html.Div([
