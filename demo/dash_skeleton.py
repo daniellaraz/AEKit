@@ -11,7 +11,7 @@ app = dash.Dash(__name__)
 
 app.layout = html.Div([
     html.Div([
-        html.H1('Facial Recognition Bias Demo', id='title'),
+        html.H1('Facial Recognition False Positive Demo', id='title'),
         html.P('Welcome to our facial recognition demo. Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.Welcome to our facial recognition demo.vWelcome to our facial recognition demo.vWelcome to our facial recognition demo.v', id='intro')
      ]),
 
@@ -62,10 +62,25 @@ app.layout = html.Div([
         dcc.Slider(
         id='threshold-slider',
         min=0,
-        max=5,
-        marks={i: str(i/5) for i in range(0, 6)},
+        max=1.0,
+        step=0.1,
         value=1,
-    )],
+        marks={
+        0: '0',
+        0.1: '0.1',
+        0.2: '0.2',
+        0.3: '0.3',
+        0.4: '0.4',
+        0.5: '0.5',
+        0.6: '0.6',
+        0.7: '0.7',
+        0.8: '0.8',
+        0.9: '0.9',
+        1: '1.0'
+    },
+    )]),
+
+    html.Div(
      id='slider-output-container', className = 'slider'
     )
 ])
@@ -168,6 +183,13 @@ def update_output(threshold):
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
+
+
+@app.callback(
+    dash.dependencies.Output('slider-output-container', 'children'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(value):
+    return 'You have selected "{}"'.format(value)
 
 
 
