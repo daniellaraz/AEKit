@@ -18,7 +18,7 @@ app.layout = html.Div([
     html.Div([
 
     html.Div([
-        html.Img(src='/assets/LeBron_James_0002.jpg')
+        html.Img(src='/assets/LeBron_James_0002.jpg', id='lebron')
         ], id='subject'),
 
     html.Div([
@@ -84,6 +84,7 @@ app.layout = html.Div([
      id='slider-output-container', className = 'slider'
     )
 ])
+
 #Jacqueline_Edwards_0001 0.819
 @app.callback(
     dash.dependencies.Output('img1', 'style'),
@@ -189,7 +190,7 @@ def update_output(threshold):
     dash.dependencies.Output('slider-output-container', 'children'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(value):
-    return 'You have selected "{}"'.format(value)
+    return 'Threshold: You have selected "{}"'.format(value)
 
 
 

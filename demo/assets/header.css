@@ -2,12 +2,15 @@
     width : 100%;
     overflow: hidden;
 }
+
+
 #subject {
     width: 300px;
     float: left;
     display: inline;
     margin-left: 20px;
 }
+
 
 .box {
     margin-left: 350px;
