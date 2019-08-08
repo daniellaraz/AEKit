@@ -4,12 +4,44 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.graph_objs as go
+import math
 
+
+#add a few people outside of the threshold
 
 app = dash.Dash(__name__)
 
 #read in csv for subject
-results = pd.read_csv('/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv'),
+results = pd.read_csv('/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv')
+
+#determine max similarity
+similarity = results['Similarity']
+max_sim = max(similarity)
+
+#determine upper limit for threshold rounded to nearest 0.5
+threshold_upper = math.ceil(max_sim*2)/2
+
+#determine step for threshold
+step = threshold_upper/10
+
+#create mark dictionary for slider
+steps = {}
+c=0
+for i in range(11):
+    if round((c+step*i), 2) == 0.00:
+        steps[0] = str(round(c+(step*i), 1))
+    elif round((c+step*i), 2) == 1.00:
+        steps[1] = str(round(c+(step*i), 1))
+    else:
+        steps[round((c+step*i), 2)] = str(round(c+(step*i), 2))
+print(steps)
+
+# upload corresponding images
+subject_image = results["Subject_File"][0]
+print(subject_image)
+images = results["File"]
+print(images)
+print(images[0])
 
 
 app.layout = html.Div([
@@ -24,40 +56,45 @@ app.layout = html.Div([
     html.Div([
 
     html.Div([
-        html.Img(src='/assets/LeBron_James_0002.jpg', id='lebron')
-        ], id='subject'),
+        html.Img(src=subject_image, id='celeb'), dcc.RadioItems(
+    options=[
+        {'label': 'LeBron James', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv'},
+        {'label': 'Lisa Leslie', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv'}
+    ],
+    value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv',id = 'subject_options'
+)], id='subject'),
 
     html.Div([
         html.Div([
-            html.Img(src='/assets/Jacqueline_Edwards_0001.jpg', id='img1')
+            html.Img(src=images[0], id='img1')
             ], id='result1', className='result1'),
 
         html.Div([
-            html.Img(src='/assets/Jason_Campbell_0001.jpg', id='img2')
+            html.Img(src=images[1], id='img2')
             ], id='result2', className = 'result2'),
         html.Div([
-            html.Img(src='/assets/Jennette_Bradley_0001.jpg', id='img3')
+            html.Img(src=images[2], id='img3')
             ], id='result3', className = 'result3'),
         html.Div([
-            html.Img(src='/assets/Julian_Battle_0001.jpg', id='img4')
+            html.Img(src=images[3], id='img4')
             ], id='result4', className = 'result4'),
         html.Div([
-            html.Img(src='/assets/Julius_Erving_0001.jpg', id='img5')
+            html.Img(src=images[4], id='img5')
             ], id='result5', className = 'result5'),
         html.Div([
-            html.Img(src='/assets/Kelli_White_0002.jpg', id='img6')
+            html.Img(src=images[5], id='img6')
             ], id='result6', className = 'result6'),
         html.Div([
-            html.Img(src='/assets/Kobe_Bryant_0003.jpg', id='img7')
+            html.Img(src=images[6], id='img7')
             ], id='result7', className = 'result7'),
         html.Div([
-            html.Img(src='/assets/Kwame_Kilpatrick_0001.jpg', id='img8')
+            html.Img(src=images[7], id='img8')
             ], id='result8', className = 'result8'),
         html.Div([
-            html.Img(src='/assets/Larry_Thompson_0001.jpg', id='img9')
+            html.Img(src=images[8], id='img9')
             ], id='result9', className = 'result9'),
         html.Div([
-            html.Img(src='/assets/Marquis_Estill_0001.jpg', id='img10')
+            html.Img(src=images[9], id='img10')
             ], id='result10', className = 'result10'),
             ],
             className = 'box'),
@@ -67,24 +104,11 @@ app.layout = html.Div([
     html.Div([
         dcc.Slider(
         id='threshold-slider',
-        min=0,
-        max=1.0,
-        step=0.1,
-        value=1,
-        marks={
-        0: '0',
-        0.1: '0.1',
-        0.2: '0.2',
-        0.3: '0.3',
-        0.4: '0.4',
-        0.5: '0.5',
-        0.6: '0.6',
-        0.7: '0.7',
-        0.8: '0.8',
-        0.9: '0.9',
-        1: '1.0'
-    },
-
+        min=0.0,
+        max= threshold_upper,
+        step=step,
+        value=threshold_upper,
+        marks= steps
     )]),
 
     html.Div(
@@ -92,102 +116,93 @@ app.layout = html.Div([
     )
 ])
 
-#Jacqueline_Edwards_0001 0.819
+
 @app.callback(
     dash.dependencies.Output('img1', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >=0.819:
+    if threshold >=similarity[0]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Jason_Campbell_0001 0.806
 @app.callback(
     dash.dependencies.Output('img2', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.806:
+    if threshold >= similarity[1]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Jennette_Bradley_0001 0.977
 @app.callback(
     dash.dependencies.Output('img3', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.977:
+    if threshold >= similarity[2]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Julian_Battle_0001 0.655
 @app.callback(
     dash.dependencies.Output('img4', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.655:
+    if threshold >= similarity[3]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Julius_Erving_0001 0.724
 @app.callback(
     dash.dependencies.Output('img5', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.724:
+    if threshold >= similarity[4]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Kelli_White_0002 0.919
 @app.callback(
     dash.dependencies.Output('img6', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.919:
+    if threshold >= similarity[5]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Kobe_Bryant_0003 0.825
 @app.callback(
     dash.dependencies.Output('img7', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.825:
+    if threshold >= similarity[6]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Kwame_Kilpatrick_0001 0.442
 @app.callback(
     dash.dependencies.Output('img8', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.442:
+    if threshold >= similarity[7]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Larry_Thompson_0001 0.151
 @app.callback(
     dash.dependencies.Output('img9', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.151:
+    if threshold >= similarity[8]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
 
-#Marquis_Estill_0001 0.719
 @app.callback(
     dash.dependencies.Output('img10', 'style'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(threshold):
-    if threshold >= 0.719:
+    if threshold >= similarity[9]:
         return {"border":"10px red solid"}
     else:
         return {"border":"10px black solid"}
@@ -198,6 +213,15 @@ def update_output(threshold):
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(value):
     return 'Threshold: You have selected "{}"'.format(value)
+
+
+
+#@app.callback(
+#    dash.dependencies.Output(results),
+#    [dash.dependencies.Input('subject_options', 'value')])
+#def update_output(value):
+    #return value
+
 
 
 
