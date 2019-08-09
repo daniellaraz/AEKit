@@ -55,7 +55,7 @@ app.layout = html.Div([
 
      ]),
 
-    html.Div([
+    html.Div([ html.Div(id='current_data', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
 
     html.Div([
         html.Img(id='celeb'), dcc.RadioItems(
@@ -106,7 +106,8 @@ app.layout = html.Div([
     html.Div([
         dcc.Slider(
         id='threshold-slider',
-        min=0.0
+        min=0.0,
+        value = 0.0
     )]),
 
     html.Div(
@@ -114,13 +115,48 @@ app.layout = html.Div([
     )
 ])
 
+# #load data and store in hidden div
+# @app.callback(Output('current_data', 'children'), [Input('threshold-slider', 'value')])
+# def load_data(value):
+#     results = pd.read_csv(value)
+#
+#
+#     #determine max similarity
+#     similarity = results['Similarity']
+#     max_sim = max(similarity)
+#
+#     #determine upper limit for threshold rounded to nearest 0.5
+#     threshold_upper = math.ceil(max_sim*2)/2
+#
+#     #determine step for threshold
+#     step = threshold_upper/10
+#
+#     #create mark dictionary for slider
+#     steps = {}
+#     c=0
+#     for i in range(11):
+#         if round((c+step*i), 2) == 0.00:
+#             steps[0] = str(round(c+(step*i), 1))
+#         elif round((c+step*i), 2) == 1.00:
+#             steps[1] = str(round(c+(step*i), 1))
+#         else:
+#             steps[round((c+step*i), 2)] = str(round(c+(step*i), 2))
+#
+#     # upload corresponding images
+#     subject_image = results["Subject_File"][0]
+#     images = results["File"]
+#
+#      # more generally, this line would be
+#      # json.dumps(cleaned_df)
+#     return results.to_json(date_format='iso', orient='split')
+
+
 #load all images
 #and slider
-#TOOKOUT MARKS FOR NOW
-#TOOKOUT VALUES FOR NOW
 
 @app.callback([Output('celeb', 'src'), Output('img1', 'src'), Output('img2', 'src'), Output('img3', 'src'), Output('img4', 'src'), Output('img5', 'src'),
-Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('img9', 'src'), Output('img10', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step')],
+Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('img9', 'src'), Output('img10', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
+Output('threshold-slider', 'marks'), Output('threshold-slider', 'value'), Output('current_data', 'children')],
     [Input('subject_options', 'value')])
 def update_output(value):
     #data = load_data(value)
@@ -133,6 +169,7 @@ def update_output(value):
 
     #determine upper limit for threshold rounded to nearest 0.5
     threshold_upper = math.ceil(max_sim*2)/2
+
 
     #determine step for threshold
     step = threshold_upper/10
@@ -148,105 +185,103 @@ def update_output(value):
         else:
             steps[round((c+step*i), 2)] = str(round(c+(step*i), 2))
 
+
     # upload corresponding images
     subject_image = results["Subject_File"][0]
     images = results["File"]
 
+    return subject_image, images[0], images[1], images[2], images[3], images[4], images[5], images[6], images[7], images[8], images[9], threshold_upper, step, steps, threshold_upper, similarity
 
-    return subject_image, images[0], images[1], images[2], images[3], images[4], images[5], images[6], images[7], images[8], images[9], threshold_upper, step
+# threshold image 1
+@app.callback(Output('img1', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[0]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
 
+#threshold image 2
+@app.callback(Output('img2', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[1]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
 
-# @app.callback(
-#     dash.dependencies.Output('img1', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >=similarity[0]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img2', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[1]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img3', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[2]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img4', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[3]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img5', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[4]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img6', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[5]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img7', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[6]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img8', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[7]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img9', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[8]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-# @app.callback(
-#     dash.dependencies.Output('img10', 'style'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(threshold):
-#     if threshold >= similarity[9]:
-#         return {"border":"10px red solid"}
-#     else:
-#         return {"border":"10px black solid"}
-#
-#
+#threshold image 3
+@app.callback(Output('img3', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[2]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 4
+@app.callback(Output('img4', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[3]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 5
+@app.callback(Output('img5', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[4]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 6
+@app.callback(Output('img6', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[5]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 7
+@app.callback(Output('img7', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[6]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 8
+@app.callback(Output('img8', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[7]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 9
+@app.callback(Output('img9', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[8]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
+#threshold image 10
+@app.callback(Output('img10', 'style'),
+    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
+def update_output(threshold, similarity):
+    if threshold >= similarity[9]:
+        return {"border":"10px red solid"}
+    else:
+        return {"border":"10px black solid"}
+
 # @app.callback(
 #     dash.dependencies.Output('slider-output-container', 'children'),
 #     [dash.dependencies.Input('threshold-slider', 'value')])
