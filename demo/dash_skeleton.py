@@ -55,7 +55,8 @@ app.layout = html.Div([
 
      ]),
 
-    html.Div([ html.Div(id='current_data', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
+    html.Div([ html.Div(id='current_data_similarity', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
+    html.Div(id='current_data_names', style={'display': 'none'}, children=['','','','','','','','','','']),
 
     html.Div([
         html.Img(id='celeb'), dcc.RadioItems(
@@ -68,35 +69,35 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.Img(id='img1')
+            html.Img(id='img1'), html.Figcaption(id='name1')
             ], id='result1', className='result1'),
 
         html.Div([
-            html.Img(id='img2')
+            html.Img(id='img2'), html.Figcaption(id='name2')
             ], id='result2', className = 'result2'),
         html.Div([
-            html.Img(id='img3')
+            html.Img(id='img3'), html.Figcaption(id='name3')
             ], id='result3', className = 'result3'),
         html.Div([
-            html.Img(id='img4')
+            html.Img(id='img4'), html.Figcaption(id='name4')
             ], id='result4', className = 'result4'),
         html.Div([
-            html.Img(id='img5')
+            html.Img(id='img5'), html.Figcaption(id='name5')
             ], id='result5', className = 'result5'),
         html.Div([
-            html.Img(id='img6')
+            html.Img(id='img6'), html.Figcaption(id='name6')
             ], id='result6', className = 'result6'),
         html.Div([
-            html.Img(id='img7')
+            html.Img(id='img7'), html.Figcaption(id='name7')
             ], id='result7', className = 'result7'),
         html.Div([
-            html.Img(id='img8')
+            html.Img(id='img8'), html.Figcaption(id='name8')
             ], id='result8', className = 'result8'),
         html.Div([
-            html.Img(id='img9')
+            html.Img(id='img9'), html.Figcaption(id='name9')
             ], id='result9', className = 'result9'),
         html.Div([
-            html.Img(id='img10')
+            html.Img(id='img10'), html.Figcaption(id='name10')
             ], id='result10', className = 'result10'),
             ],
             className = 'box'),
@@ -115,53 +116,18 @@ app.layout = html.Div([
     )
 ])
 
-# #load data and store in hidden div
-# @app.callback(Output('current_data', 'children'), [Input('threshold-slider', 'value')])
-# def load_data(value):
-#     results = pd.read_csv(value)
-#
-#
-#     #determine max similarity
-#     similarity = results['Similarity']
-#     max_sim = max(similarity)
-#
-#     #determine upper limit for threshold rounded to nearest 0.5
-#     threshold_upper = math.ceil(max_sim*2)/2
-#
-#     #determine step for threshold
-#     step = threshold_upper/10
-#
-#     #create mark dictionary for slider
-#     steps = {}
-#     c=0
-#     for i in range(11):
-#         if round((c+step*i), 2) == 0.00:
-#             steps[0] = str(round(c+(step*i), 1))
-#         elif round((c+step*i), 2) == 1.00:
-#             steps[1] = str(round(c+(step*i), 1))
-#         else:
-#             steps[round((c+step*i), 2)] = str(round(c+(step*i), 2))
-#
-#     # upload corresponding images
-#     subject_image = results["Subject_File"][0]
-#     images = results["File"]
-#
-#      # more generally, this line would be
-#      # json.dumps(cleaned_df)
-#     return results.to_json(date_format='iso', orient='split')
-
-
 #load all images
 #and slider
 
 @app.callback([Output('celeb', 'src'), Output('img1', 'src'), Output('img2', 'src'), Output('img3', 'src'), Output('img4', 'src'), Output('img5', 'src'),
 Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('img9', 'src'), Output('img10', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
-Output('threshold-slider', 'marks'), Output('threshold-slider', 'value'), Output('current_data', 'children')],
-    [Input('subject_options', 'value')])
+Output('threshold-slider', 'marks'), Output('threshold-slider', 'value'), Output('current_data_similarity', 'children'), Output('current_data_names', 'children')], [Input('subject_options', 'value')])
 def update_output(value):
     #data = load_data(value)
     results = pd.read_csv(value)
 
+    #gather names
+    names = results['Name']
 
     #determine max similarity
     similarity = results['Similarity']
@@ -190,103 +156,105 @@ def update_output(value):
     subject_image = results["Subject_File"][0]
     images = results["File"]
 
-    return subject_image, images[0], images[1], images[2], images[3], images[4], images[5], images[6], images[7], images[8], images[9], threshold_upper, step, steps, threshold_upper, similarity
+    return [subject_image, images[0], images[1], images[2], images[3], images[4],
+        images[5], images[6], images[7], images[8], images[9], threshold_upper,
+        step, steps, threshold_upper, similarity, names]
 
 # threshold image 1
-@app.callback(Output('img1', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img1', 'style'), Output('name1', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[0]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[0]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[0]
 
 #threshold image 2
-@app.callback(Output('img2', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img2', 'style'),Output('name2', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[1]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[1]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[1]
 
 #threshold image 3
-@app.callback(Output('img3', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img3', 'style'),Output('name3', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[2]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[2]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[2]
 
 #threshold image 4
-@app.callback(Output('img4', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img4', 'style'),Output('name4', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[3]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[3]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[3]
 
 #threshold image 5
-@app.callback(Output('img5', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img5', 'style'),Output('name5', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[4]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[4]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[4]
 
 #threshold image 6
-@app.callback(Output('img6', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img6', 'style'),Output('name6', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[5]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[5]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[5]
 
 #threshold image 7
-@app.callback(Output('img7', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img7', 'style'),Output('name7', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[6]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[6]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[6]
 
 #threshold image 8
-@app.callback(Output('img8', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img8', 'style'),Output('name8', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[7]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[7]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[7]
 
 #threshold image 9
-@app.callback(Output('img9', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img9', 'style'),Output('name9', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[8]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[8]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[8]
 
 #threshold image 10
-@app.callback(Output('img10', 'style'),
-    [Input('threshold-slider', 'value'), Input('current_data', 'children')])
-def update_output(threshold, similarity):
+@app.callback([Output('img10', 'style'),Output('name10', 'children')],
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
+def update_output(threshold, similarity, names):
     if threshold >= similarity[9]:
-        return {"border":"10px red solid"}
+        return {"border":"10px red solid"}, names[9]
     else:
-        return {"border":"10px black solid"}
+        return {"border":"10px black solid"}, names[9]
 
-# @app.callback(
-#     dash.dependencies.Output('slider-output-container', 'children'),
-#     [dash.dependencies.Input('threshold-slider', 'value')])
-# def update_output(value):
-#     return 'Threshold: You have selected "{}"'.format(value)
+@app.callback(
+    dash.dependencies.Output('slider-output-container', 'children'),
+    [dash.dependencies.Input('threshold-slider', 'value')])
+def update_output(value):
+    return 'Threshold: You have selected "{}"'.format(value)
 
 
 
