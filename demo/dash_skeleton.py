@@ -68,7 +68,8 @@ app.layout = html.Div([
         {'label': 'Aaron Peirsol', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Aaron_Peirsol.csv'},
         {'label': 'Jacqueline Edwards', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jacqueline_Edwards.csv'},
         {'label': 'Kalpana Chawla', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Kalpana_Chawla.csv'},
-        {'label': 'Jason Campbell', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jason_Campbell.csv'}
+        {'label': 'Jason Campbell', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jason_Campbell.csv'},
+        {'label': 'Katie Couric', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Katie_Couric.csv'}
     ],
     value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv',id = 'subject_options'
 )], id='subject'),
