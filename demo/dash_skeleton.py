@@ -65,7 +65,10 @@ app.layout = html.Div([
         {'label': 'LeBron James', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv'},
         {'label': 'Lisa Leslie', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv'},
         {'label': 'Paris Hilton', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Paris_Hilton.csv'},
-        {'label': 'Aaron Peirsol', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Aaron_Peirsol.csv'}
+        {'label': 'Aaron Peirsol', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Aaron_Peirsol.csv'},
+        {'label': 'Jacqueline Edwards', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jacqueline_Edwards.csv'},
+        {'label': 'Kalpana Chawla', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Kalpana_Chawla.csv'},
+        {'label': 'Jason Campbell', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jason_Campbell.csv'}
     ],
     value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv',id = 'subject_options'
 )], id='subject'),
