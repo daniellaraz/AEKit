@@ -63,7 +63,9 @@ app.layout = html.Div([
         html.Img(id='celeb'), dcc.RadioItems(
     options=[
         {'label': 'LeBron James', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv'},
-        {'label': 'Lisa Leslie', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv'}
+        {'label': 'Lisa Leslie', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv'},
+        {'label': 'Paris Hilton', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Paris_Hilton.csv'},
+        {'label': 'Aaron Peirsol', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Aaron_Peirsol.csv'}
     ],
     value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv',id = 'subject_options'
 )], id='subject'),
