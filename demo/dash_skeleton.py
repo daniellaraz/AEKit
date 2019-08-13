@@ -13,7 +13,7 @@ app = dash.Dash(__name__)
 app.title = 'Facial Recognition Demo'
 
 
-
+# introduction text
 app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
@@ -23,9 +23,11 @@ app.layout = html.Div([
 
      ]),
 
+    # stores current subject data
     html.Div([ html.Div(id='current_data_similarity', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
     html.Div(id='current_data_names', style={'display': 'none'}, children=['','','','','','','','','','']),
 
+    # subject and radio button options to switch subject
     html.Div([
         html.Img(id='celeb'), dcc.RadioItems(
     options=[
@@ -42,6 +44,7 @@ app.layout = html.Div([
     value='LeBron_James.csv',id = 'subject_options'
 )], id='subject'),
 
+    # creates divs for images
     html.Div([
         html.Div([
             html.Img(id='img1'), html.Figcaption(id='name1'),
@@ -87,7 +90,7 @@ app.layout = html.Div([
             ],
             className = 'box'),
 
-
+# slider
 ], id='main_wrapper'),
     html.Div([
         dcc.Slider(
@@ -101,9 +104,7 @@ app.layout = html.Div([
     )
 ])
 
-#load all images
-#and slider
-
+#loads all images and slider with current subject
 @app.callback([Output('celeb', 'src'), Output('img1', 'src'), Output('img2', 'src'), Output('img3', 'src'), Output('img4', 'src'), Output('img5', 'src'),
 Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('img9', 'src'), Output('img10', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
 Output('threshold-slider', 'marks'), Output('threshold-slider', 'value'), Output('current_data_similarity', 'children'), Output('current_data_names', 'children')], [Input('subject_options', 'value')])
@@ -235,6 +236,7 @@ def update_output(threshold, similarity, names):
     else:
         return {"border":"10px black solid"}, names[9], str(round(similarity[9], 3))
 
+# threshold text
 @app.callback(
     dash.dependencies.Output('slider-output-container', 'children'),
     [dash.dependencies.Input('threshold-slider', 'value')])
