@@ -18,7 +18,7 @@ app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
         html.H2('Instructions:', id='instructions'),
-        html.P('Move the slider to change the threshold for the difference between two images that qualifies as a match. If the difference score is  0, the two images are the same. The closer the difference score is to 1 the more different the images are, and the closer the difference score is to 0 the more similar the images are. Matched images are outlined in red.'),
+        html.P('Move the slider to change the threshold for the difference between two images that qualifies as a match. If the difference score is  0, the two images are the same. The larger the difference score is, the more different the images are, and the closer the difference score is to 0 the more similar the images are. Matched images are outlined in red. Below each name, each image shows the difference score that resulted when comparing that image to the subject.'),
         html.H3("False Positive:"), html.P("When two images result as a match, but aren't actually the same person, a false positive has occurred. False positive rates from facial recognition technology are higher for people, especially women, of color. Bias in machine learning algorithms can have adverse social effects.")
 
      ]),
