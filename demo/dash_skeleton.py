@@ -13,39 +13,6 @@ app = dash.Dash(__name__)
 app.title = 'Facial Recognition Demo'
 
 
-def load_data(csv):
-    #read in csv for subject
-
-    results = pd.read_csv(csv)
-
-
-    #determine max similarity
-    similarity = results['Similarity']
-    max_sim = max(similarity)
-
-    #determine upper limit for threshold rounded to nearest 0.5
-    threshold_upper = math.ceil(max_sim*2)/2
-
-    #determine step for threshold
-    step = threshold_upper/10
-
-    #create mark dictionary for slider
-    steps = {}
-    c=0
-    for i in range(11):
-        if round((c+step*i), 2) == 0.00:
-            steps[0] = str(round(c+(step*i), 1))
-        elif round((c+step*i), 2) == 1.00:
-            steps[1] = str(round(c+(step*i), 1))
-        else:
-            steps[round((c+step*i), 2)] = str(round(c+(step*i), 2))
-
-    # upload corresponding images
-    subject_image = results["Subject_File"][0]
-    images = results["File"]
-
-original_csv = '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv'
-
 
 app.layout = html.Div([
     html.Div([
@@ -62,17 +29,17 @@ app.layout = html.Div([
     html.Div([
         html.Img(id='celeb'), dcc.RadioItems(
     options=[
-        {'label': 'LeBron James', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv'},
-        {'label': 'Lisa Leslie', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv'},
-        {'label': 'Paris Hilton', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Paris_Hilton.csv'},
-        {'label': 'Aaron Peirsol', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Aaron_Peirsol.csv'},
-        {'label': 'Jacqueline Edwards', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jacqueline_Edwards.csv'},
-        {'label': 'Kalpana Chawla', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Kalpana_Chawla.csv'},
-        {'label': 'Jason Campbell', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Jason_Campbell.csv'},
-        {'label': 'Katie Couric', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Katie_Couric.csv'},
-        {'label': 'Vicki Zhao Wei', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Vicki_Zhao_Wei.csv'}
+        {'label': 'LeBron James', 'value': 'LeBron_James.csv'},
+        {'label': 'Lisa Leslie', 'value': 'Lisa_Leslie.csv'},
+        {'label': 'Paris Hilton', 'value': 'Paris_Hilton.csv'},
+        {'label': 'Aaron Peirsol', 'value': 'Aaron_Peirsol.csv'},
+        {'label': 'Jacqueline Edwards', 'value': 'Jacqueline_Edwards.csv'},
+        {'label': 'Kalpana Chawla', 'value': 'Kalpana_Chawla.csv'},
+        {'label': 'Jason Campbell', 'value': 'Jason_Campbell.csv'},
+        {'label': 'Katie Couric', 'value': 'Katie_Couric.csv'},
+        {'label': 'Vicki Zhao Wei', 'value': 'Vicki_Zhao_Wei.csv'}
     ],
-    value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv',id = 'subject_options'
+    value='LeBron_James.csv',id = 'subject_options'
 )], id='subject'),
 
     html.Div([
