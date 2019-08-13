@@ -44,3 +44,7 @@ figcaption {
     margin-right: 20px;
     margin-left: 20px;
 }
+
+#subject_options {
+    display: grid;
+}

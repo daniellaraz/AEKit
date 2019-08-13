@@ -274,6 +274,14 @@ def update_output(threshold, similarity, names):
 def update_output(value):
     return 'Threshold: You have selected "{}"'.format(value)
 
+# @app.callback(
+#     dash.dependencies.Output('subject', 'children'),
+#     [dash.dependencies.Input('celeb', 'n_clicks')])
+# def update_output(clicks):
+#     if clicks != None:
+#         return 'Clicked!'
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
