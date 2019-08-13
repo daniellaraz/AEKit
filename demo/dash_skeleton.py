@@ -52,7 +52,7 @@ app.layout = html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
         html.H2('Instructions:', id='instructions'),
         html.P('Move the slider to change the threshold for the difference between two images that qualifies as a match. If the difference score is  0, the two images are the same. The closer the difference score is to 1 the more different the images are, and the closer the difference score is to 0 the more similar the images are. Matched images are outlined in red.'),
-        html.H3("False Positive:"), html.P("When two images result as a match, but aren't actually the same person, a false positive has occurred. Since Lebron James' image is not in the database of images that we compared his image to, any images that result in a match are a false positive. False positive rates from facial recognition technology are higher for people, especially women, of color. Bias in machine learning algorithms can have adverse social effects.")
+        html.H3("False Positive:"), html.P("When two images result as a match, but aren't actually the same person, a false positive has occurred. False positive rates from facial recognition technology are higher for people, especially women, of color. Bias in machine learning algorithms can have adverse social effects.")
 
      ]),
 
@@ -72,7 +72,7 @@ app.layout = html.Div([
         {'label': 'Katie Couric', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Katie_Couric.csv'},
         {'label': 'Vicki Zhao Wei', 'value': '/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Vicki_Zhao_Wei.csv'}
     ],
-    value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/Lisa_Leslie.csv',id = 'subject_options'
+    value='/Users/corinnebintz/Desktop/AEKit/AEKit-git/demo/assets/LeBron_James.csv',id = 'subject_options'
 )], id='subject'),
 
     html.Div([
