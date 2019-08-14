@@ -30,7 +30,9 @@ app.layout = html.Div([
         html.H3('Instructions:', id='instructions'),
         html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
         html.Div([
-    "2. Move the slider by clicking on the number intervals to change the threshold for the minimum similarity required between the subject and each image to qualify as a match. The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
+    "2. Move the slider by clicking on the number intervals to change the minimum similarity required between the subject and each image to qualify as a match, which we refer to as the",
+    html.Span(" threshold. ", style = {"font-weight": "bold"}),
+    "The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
     html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
     'are outlined in ',
     html.Span('yellow', style={'background-color': 'yellow', 'font-weight': 'bold'}),
@@ -305,7 +307,7 @@ def update_output(threshold, similarity, names, match):
     dash.dependencies.Output('slider-output-container', 'children'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(value):
-    return 'Threshold: You have selected "{}"'.format(value)
+    return 'Threshold: You have selected a minimum similiarity score to qualify for a match as "{}"'.format(value)
 
 # @app.callback(
 #     dash.dependencies.Output('subject', 'children'),
