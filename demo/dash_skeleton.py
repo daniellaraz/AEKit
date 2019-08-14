@@ -6,12 +6,12 @@ import pandas as pd
 import plotly.graph_objs as go
 import math
 
-# green = true match
+# green = true match -DONE
 # add another picture into database -DONE
 # change 1-x for similarity scores - DONE
-# less similar (0.0) to more similar (1.5)
+# less similar (0.0) to more similar (1.5) -DONE
 # use "similar score" instead of "difference score" -DONE
-# closest match is green, everything above threshold but not closet is yellow
+# closest match is green, everything above threshold but not closet is yellow -DONE
 # black for those below threshold - DONE
 # add things to look out for -DONE
 # steps in instructions -DONE
@@ -27,8 +27,25 @@ app.title = 'Facial Recognition Demo'
 app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
-        html.H2('Instructions:', id='instructions'),
-        html.P("1. Enter full screen. Below each name, each image shows the similarity score that resulted when comparing that image to the subject. 2. Move the slider to change the threshold for the similarity required between two images to qualify as a match. The larger the similarity score is, the more similar the images are. Images that match according to the similarity threshold, but aren't really the same person, which we call false positives, are outlined in yellow. True matches are outlined in green. Images with similarity scores that fall below the threshold and don't match are outlined in black.  3. Notice differences in similarity scores between the subject and the other images along lines of race and gender. Facial recognition software has been shown to have lower accuracy for people, especially women, of color.")
+        html.H3('Instructions:', id='instructions'),
+        html.P("1. Enter full screen. Listed below each name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
+        html.Div([
+    "2. Move the slider to change the threshold for the minimum similarity required between the subject and each image to qualify as a match. The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
+    html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
+    'are outlined in ',
+    html.Span('yellow', style={'background-color': 'yellow', 'font-weight': 'bold'}),
+    '. When the images match and are truly the same person, we call this a  ',
+    html.Span('true match. True matches ', style={'font-weight': 'bold'}),
+    'are outlined in ',
+    html.Span('green', style={'color': 'green', 'font-weight': 'bold'}),
+    ". We refer to images with similarity scores that fall below the threshold and don't match as ",
+    html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
+    'are outlined in ',
+    html.Span('black.', style={'font-weight': 'bold'}),
+
+]),
+        html.P("3. Notice differences in similarity scores between the subject and the other images along lines of race and gender. Facial recognition software has been shown to have lower accuracy for people, especially women, of color, which can result in negative societal impacts when facial recognition technology is used for surveillance or policing purposes."),
+        html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo.")
 
      ]),
 
@@ -39,6 +56,7 @@ app.layout = html.Div([
 
     # subject and radio button options to switch subject
     html.Div([
+        html.H3('Current subject'),
         html.Img(id='celeb'), dcc.RadioItems(
     options=[
         {'label': 'LeBron James', 'value': 'LeBron_James.csv'},
