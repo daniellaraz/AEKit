@@ -28,20 +28,21 @@ app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
         html.H3('Instructions:', id='instructions'),
-        html.P("1. Enter full screen in your broswer. Listed below each celebrity name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
+        html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
         html.Div([
-    "2. Move the slider to change the threshold for the minimum similarity required between the subject and each image to qualify as a match. The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
+    "2. Move the slider by clicking on the number intervals to change the threshold for the minimum similarity required between the subject and each image to qualify as a match. The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
     html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
     'are outlined in ',
     html.Span('yellow', style={'background-color': 'yellow', 'font-weight': 'bold'}),
     '. When the images match and are truly the same person, we call this a  ',
     html.Span('true match. True matches ', style={'font-weight': 'bold'}),
     'are outlined in ',
-    html.Span('green', style={'color': 'green', 'font-weight': 'bold'}),
+    html.Span('green', style={'background-color': '#98FB98', 'font-weight': 'bold'}),
     ". We refer to images with similarity scores that fall below the threshold and don't match as ",
     html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
     'are outlined in ',
     html.Span('black.', style={'font-weight': 'bold'}),
+    'Explore each interval of the threshold slider to see how false positives, true matches, and nonmatches change depending on the threshold.'
 
 ]),
         html.P("3. Notice differences in similarity scores between the subject and the other images along lines of race and gender. Facial recognition software has been shown to have lower accuracy for people, especially women, of color, which can result in negative societal impacts when facial recognition technology is used for surveillance or policing purposes."),
