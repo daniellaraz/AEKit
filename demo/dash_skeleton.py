@@ -44,7 +44,7 @@ app.layout = html.Div([
     html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
     'are outlined in ',
     html.Span('black.', style={'font-weight': 'bold'}),
-    ' Explore each interval of the threshold slider to see how false positives, true matches, and nonmatches change depending on the threshold.'
+    ' Explore each interval of the threshold slider to see how false positives, true matches, and non-matches change depending on the threshold.'
 
 ]),
         html.P("3. Notice differences in similarity scores between the subject and the 10 images for subjects of different skin tones and genders. Facial recognition software has been shown to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, an image of Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when facial recognition technology is used for surveillance or policing purposes."),
