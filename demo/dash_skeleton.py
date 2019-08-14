@@ -130,6 +130,10 @@ app.layout = html.Div([
 
     html.Div(
      id='slider-output-container', className = 'slider'
+    ),
+
+    html.Div(
+     html.H3('Resources')
     )
 ])
 
