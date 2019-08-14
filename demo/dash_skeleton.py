@@ -6,8 +6,18 @@ import pandas as pd
 import plotly.graph_objs as go
 import math
 
+# green = true match
+# add another picture into database -DONE
+# change 1-x for similarity scores - DONE
+# less similar (0.0) to more similar (1.5)
+# use "similar score" instead of "difference score" -DONE
+# closest match is green, everything above threshold but not closet is yellow
+# black for those below threshold - DONE
+# add things to look out for -DONE
+# steps in instructions -DONE
 
-#add a few people outside of the threshold
+
+#add a few people outside of the threshold (?)
 
 app = dash.Dash(__name__)
 app.title = 'Facial Recognition Demo'
@@ -18,14 +28,14 @@ app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
         html.H2('Instructions:', id='instructions'),
-        html.P('Move the slider to change the threshold for the difference between two images that qualifies as a match. If the difference score is  0, the two images are the same. The larger the difference score is, the more different the images are, and the closer the difference score is to 0 the more similar the images are. Matched images are outlined in red. Below each name, each image shows the difference score that resulted when comparing that image to the subject.'),
-        html.H3("False Positive:"), html.P("When two images result as a match, but aren't actually the same person, a false positive has occurred. False positive rates from facial recognition technology are higher for people, especially women, of color. Bias in machine learning algorithms can have adverse social effects.")
+        html.P("1. Enter full screen. Below each name, each image shows the similarity score that resulted when comparing that image to the subject. 2. Move the slider to change the threshold for the similarity required between two images to qualify as a match. The larger the similarity score is, the more similar the images are. Images that match according to the similarity threshold, but aren't really the same person, which we call false positives, are outlined in yellow. True matches are outlined in green. Images with similarity scores that fall below the threshold and don't match are outlined in black.  3. Notice differences in similarity scores between the subject and the other images along lines of race and gender. Facial recognition software has been shown to have lower accuracy for people, especially women, of color.")
 
      ]),
 
     # stores current subject data
     html.Div([ html.Div(id='current_data_similarity', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
     html.Div(id='current_data_names', style={'display': 'none'}, children=['','','','','','','','','','']),
+    html.Div(id='current_match_values', style={'display': 'none'}, children=[False,False,False,False,False,False,False,False,False,False]),
 
     # subject and radio button options to switch subject
     html.Div([
@@ -95,7 +105,7 @@ app.layout = html.Div([
     html.Div([
         dcc.Slider(
         id='threshold-slider',
-        min=0.0,
+        min=-0.0,
         value = 0.0
     )]),
 
@@ -107,7 +117,7 @@ app.layout = html.Div([
 #loads all images and slider with current subject
 @app.callback([Output('celeb', 'src'), Output('img1', 'src'), Output('img2', 'src'), Output('img3', 'src'), Output('img4', 'src'), Output('img5', 'src'),
 Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('img9', 'src'), Output('img10', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
-Output('threshold-slider', 'marks'), Output('threshold-slider', 'value'), Output('current_data_similarity', 'children'), Output('current_data_names', 'children')], [Input('subject_options', 'value')])
+Output('threshold-slider', 'marks'), Output('current_data_similarity', 'children'), Output('current_data_names', 'children'), Output('current_match_values', 'children'), Output('threshold-slider', 'value')], [Input('subject_options', 'value')])
 def update_output(value):
     #data = load_data(value)
     results = pd.read_csv(value)
@@ -122,9 +132,11 @@ def update_output(value):
     #determine upper limit for threshold rounded to nearest 0.5
     threshold_upper = math.ceil(max_sim*2)/2
 
-
     #determine step for threshold
     step = threshold_upper/10
+
+    #download match booleans
+    matches = results['Match']
 
     #create mark dictionary for slider
     steps = {}
@@ -137,102 +149,131 @@ def update_output(value):
         else:
             steps[round((c+step*i), 2)] = str(round(c+(step*i), 2))
 
-
     # upload corresponding images
     subject_image = results["Subject_File"][0]
     images = results["File"]
 
     return [subject_image, images[0], images[1], images[2], images[3], images[4],
         images[5], images[6], images[7], images[8], images[9], threshold_upper,
-        step, steps, threshold_upper, similarity, names]
+        step, steps, similarity, names, matches, 0.0]
 
 # threshold image 1
 @app.callback([Output('img1', 'style'), Output('name1', 'children'), Output('sim1', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[0]:
-        return {"border":"10px red solid"}, names[0], str(round(similarity[0], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[0] >= threshold:
+        if match[0]:
+            return {"border":"10px green solid"}, names[0], str(round(similarity[0], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[0], str(round(similarity[0], 3))
     else:
         return {"border":"10px black solid"}, names[0], str(round(similarity[0], 3))
 
 #threshold image 2
 @app.callback([Output('img2', 'style'),Output('name2', 'children'), Output('sim2', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[1]:
-        return {"border":"10px red solid"}, names[1], str(round(similarity[1], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[1] >= threshold:
+        if match[1]:
+            return {"border":"10px green solid"}, names[1], str(round(similarity[1], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[1], str(round(similarity[1], 3))
     else:
         return {"border":"10px black solid"}, names[1], str(round(similarity[1], 3))
 
 #threshold image 3
 @app.callback([Output('img3', 'style'),Output('name3', 'children'), Output('sim3', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[2]:
-        return {"border":"10px red solid"}, names[2], str(round(similarity[2], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[2] >= threshold:
+        if match[2]:
+            return {"border":"10px green solid"}, names[2], str(round(similarity[2], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[2], str(round(similarity[2], 3))
     else:
         return {"border":"10px black solid"}, names[2], str(round(similarity[2], 3))
 
 #threshold image 4
 @app.callback([Output('img4', 'style'),Output('name4', 'children'), Output('sim4', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[3]:
-        return {"border":"10px red solid"}, names[3], str(round(similarity[3], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[3] >= threshold:
+        if match[3]:
+            return {"border":"10px green solid"}, names[3], str(round(similarity[3], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[3], str(round(similarity[3], 3))
     else:
         return {"border":"10px black solid"}, names[3], str(round(similarity[3], 3))
 
 #threshold image 5
 @app.callback([Output('img5', 'style'),Output('name5', 'children'), Output('sim5', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[4]:
-        return {"border":"10px red solid"}, names[4], str(round(similarity[4], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[4] >= threshold:
+        if match[4]:
+            return {"border":"10px green solid"}, names[4], str(round(similarity[4], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[4], str(round(similarity[4], 3))
     else:
         return {"border":"10px black solid"}, names[4], str(round(similarity[4], 3))
 
 #threshold image 6
 @app.callback([Output('img6', 'style'),Output('name6', 'children'), Output('sim6','children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[5]:
-        return {"border":"10px red solid"}, names[5], str(round(similarity[5], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[5] >= threshold:
+        if match[5]:
+            return {"border":"10px green solid"}, names[5], str(round(similarity[5], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[5], str(round(similarity[5], 3))
     else:
         return {"border":"10px black solid"}, names[5], str(round(similarity[5], 3))
 
 #threshold image 7
 @app.callback([Output('img7', 'style'),Output('name7', 'children'), Output('sim7', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[6]:
-        return {"border":"10px red solid"}, names[6], str(round(similarity[6], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[6] >= threshold:
+        if match[6]:
+            return {"border":"10px green solid"}, names[6], str(round(similarity[6], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[6], str(round(similarity[6], 3))
     else:
         return {"border":"10px black solid"}, names[6], str(round(similarity[6], 3))
 
 #threshold image 8
 @app.callback([Output('img8', 'style'),Output('name8', 'children'), Output('sim8', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[7]:
-        return {"border":"10px red solid"}, names[7], str(round(similarity[7], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[7] >= threshold:
+        if match[7]:
+            return {"border":"10px green solid"}, names[7], str(round(similarity[7], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[7], str(round(similarity[7], 3))
     else:
         return {"border":"10px black solid"}, names[7], str(round(similarity[7], 3))
 
 #threshold image 9
 @app.callback([Output('img9', 'style'),Output('name9', 'children'), Output('sim9', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[8]:
-        return {"border":"10px red solid"}, names[8], str(round(similarity[8], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[8] >= threshold:
+        if match[8]:
+            return {"border":"10px green solid"}, names[8], str(round(similarity[8], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[8], str(round(similarity[8], 3))
     else:
         return {"border":"10px black solid"}, names[8], str(round(similarity[8], 3))
 
 #threshold image 10
 @app.callback([Output('img10', 'style'),Output('name10', 'children'), Output('sim10', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children')])
-def update_output(threshold, similarity, names):
-    if threshold >= similarity[9]:
-        return {"border":"10px red solid"}, names[9], str(round(similarity[9], 3))
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+def update_output(threshold, similarity, names, match):
+    if similarity[9] >= threshold:
+        if match[9]:
+            return {"border":"10px green solid"}, names[9], str(round(similarity[9], 3))
+        else:
+            return {"border":"10px yellow solid"}, names[9], str(round(similarity[9], 3))
     else:
         return {"border":"10px black solid"}, names[9], str(round(similarity[9], 3))
 
