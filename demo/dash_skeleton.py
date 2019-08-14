@@ -28,7 +28,7 @@ app.layout = html.Div([
     html.Div([
         html.H1('Facial Recognition False Positive Demo', id='title'),
         html.H3('Instructions:', id='instructions'),
-        html.P("1. Enter full screen. Listed below each name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
+        html.P("1. Enter full screen in your broswer. Listed below each celebrity name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
         html.Div([
     "2. Move the slider to change the threshold for the minimum similarity required between the subject and each image to qualify as a match. The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
     html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
