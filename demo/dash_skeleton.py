@@ -43,8 +43,8 @@ app.layout = html.Div([
     ". We refer to images with similarity scores that fall below the threshold and don't match as ",
     html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
     'are outlined in ',
-    html.Span('black.', style={'font-weight': 'bold'}),
-    ' Explore each interval of the threshold slider to see how false positives, true matches, and non-matches change depending on the threshold.'
+    html.Span('black', style={'font-weight': 'bold'}),
+    'and are faded away. Explore each interval of the threshold slider to see how false positives, true matches, and non-matches change depending on the threshold.'
 
 ]),
         html.P("3. Notice differences in similarity scores of the 10 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when implementing the technology for surveillance or policing purposes."),
@@ -193,7 +193,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[0], str(round(similarity[0], 3))
     else:
-        return {"border":"10px black solid"}, names[0], str(round(similarity[0], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[0], str(round(similarity[0], 3))
 
 #threshold image 2
 @app.callback([Output('img2', 'style'),Output('name2', 'children'), Output('sim2', 'children')],
@@ -205,7 +205,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[1], str(round(similarity[1], 3))
     else:
-        return {"border":"10px black solid"}, names[1], str(round(similarity[1], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[1], str(round(similarity[1], 3))
 
 #threshold image 3
 @app.callback([Output('img3', 'style'),Output('name3', 'children'), Output('sim3', 'children')],
@@ -217,7 +217,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[2], str(round(similarity[2], 3))
     else:
-        return {"border":"10px black solid"}, names[2], str(round(similarity[2], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[2], str(round(similarity[2], 3))
 
 #threshold image 4
 @app.callback([Output('img4', 'style'),Output('name4', 'children'), Output('sim4', 'children')],
@@ -229,7 +229,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[3], str(round(similarity[3], 3))
     else:
-        return {"border":"10px black solid"}, names[3], str(round(similarity[3], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[3], str(round(similarity[3], 3))
 
 #threshold image 5
 @app.callback([Output('img5', 'style'),Output('name5', 'children'), Output('sim5', 'children')],
@@ -241,7 +241,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[4], str(round(similarity[4], 3))
     else:
-        return {"border":"10px black solid"}, names[4], str(round(similarity[4], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[4], str(round(similarity[4], 3))
 
 #threshold image 6
 @app.callback([Output('img6', 'style'),Output('name6', 'children'), Output('sim6','children')],
@@ -253,7 +253,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[5], str(round(similarity[5], 3))
     else:
-        return {"border":"10px black solid"}, names[5], str(round(similarity[5], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[5], str(round(similarity[5], 3))
 
 #threshold image 7
 @app.callback([Output('img7', 'style'),Output('name7', 'children'), Output('sim7', 'children')],
@@ -265,7 +265,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[6], str(round(similarity[6], 3))
     else:
-        return {"border":"10px black solid"}, names[6], str(round(similarity[6], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[6], str(round(similarity[6], 3))
 
 #threshold image 8
 @app.callback([Output('img8', 'style'),Output('name8', 'children'), Output('sim8', 'children')],
@@ -277,7 +277,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[7], str(round(similarity[7], 3))
     else:
-        return {"border":"10px black solid"}, names[7], str(round(similarity[7], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[7], str(round(similarity[7], 3))
 
 #threshold image 9
 @app.callback([Output('img9', 'style'),Output('name9', 'children'), Output('sim9', 'children')],
@@ -289,7 +289,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[8], str(round(similarity[8], 3))
     else:
-        return {"border":"10px black solid"}, names[8], str(round(similarity[8], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[8], str(round(similarity[8], 3))
 
 #threshold image 10
 @app.callback([Output('img10', 'style'),Output('name10', 'children'), Output('sim10', 'children')],
@@ -301,7 +301,7 @@ def update_output(threshold, similarity, names, match):
         else:
             return {"border":"10px yellow solid"}, names[9], str(round(similarity[9], 3))
     else:
-        return {"border":"10px black solid"}, names[9], str(round(similarity[9], 3))
+        return {"border":"10px black solid", "opacity": "0.2"}, names[9], str(round(similarity[9], 3))
 
 # threshold text
 @app.callback(
