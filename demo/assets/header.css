@@ -10,7 +10,10 @@
     display: inline;
     margin-left: 20px;
 }
-
+ #celeb {
+     width: 230px;
+     height: 230px;
+ }
 
 .box {
     margin-left: 350px;
