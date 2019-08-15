@@ -29,22 +29,20 @@ h4 {
 }
 
 #result1, #result2, #result3, #result4, #result5, #result6, #result7, #result8, #result9, #result10 {
-  /*display: inline-block;*/
   margin: 30px 30px 30px 30px;
   width: 125px;
   height: 125px;
   flex-grow: 1;
-  align-items: center;
+  text-align: center;
 }
 
 #img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8, #img9, #img10 {
   width: 125px;
   height: 125px;
-  align-items: center;
 }
 figcaption {
-    text-align: inherit;
     font-size: 13px;
+    /*display: block;*/
 }
 
 #slider {
