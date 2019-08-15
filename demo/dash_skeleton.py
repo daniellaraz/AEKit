@@ -122,21 +122,22 @@ app.layout = html.Div([
             className = 'box'),
 
 # slider
-], id='main_wrapper'),
+
     html.Div([
         dcc.Slider(
         id='threshold-slider',
         min=-0.0,
         value = 0.0
-    )]),
-
-    html.Div(
+    ), html.Div(
      id='slider-output-container', className = 'slider'
-    ),
+    )], id = 'slider'),
+
+
 
     html.Div(
      html.H3('Resources')
     )
+    ], id='main_wrapper')
 ])
 
 #loads all images and slider with current subject
