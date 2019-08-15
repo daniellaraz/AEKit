@@ -16,20 +16,26 @@
     margin-left: 350px;
 }
 
+h4 {
+    margin: 0px;
+    padding:0px;
+}
+
 #result1, #result2, #result3, #result4, #result5, #result6, #result7, #result8, #result9, #result10 {
   display: inline-block;
   margin: 25px 25px 25px 25px;
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
 }
 
 #img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8, #img9, #img10 {
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
   align-items: center;
 }
 figcaption {
     text-align: center;
+    font-size: 13px;
 }
 
 

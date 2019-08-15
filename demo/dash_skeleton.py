@@ -26,9 +26,9 @@ app.title = 'Facial Recognition Demo'
 # introduction text
 app.layout = html.Div([
     html.Div([
-        html.H1('Facial Recognition False Positive Demo', id='title'),
-        html.H3('Instructions:', id='instructions'),
-        html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted when that image was compared to the current subject using open source facial recognition software."),
+        html.H3('Facial Recognition False Positive Demo', id='title'),
+        html.H4('Instructions:', id='instructions'),
+        html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using open source facial recognition software."),
         html.Div([
     "2. Move the slider by clicking on the number intervals to change the minimum similarity required between the subject and each image to qualify as a match, which we refer to as the",
     html.Span(" threshold. ", style = {"font-weight": "bold"}),
@@ -47,7 +47,7 @@ app.layout = html.Div([
     ' Explore each interval of the threshold slider to see how false positives, true matches, and non-matches change depending on the threshold.'
 
 ]),
-        html.P("3. Notice differences in similarity scores between the subject and the 10 images for subjects of different skin tones and genders. Facial recognition software has been shown to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, an image of Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when facial recognition technology is used for surveillance or policing purposes."),
+        html.P("3. Notice differences in similarity scores of the 10 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when implementing the technology for surveillance or policing purposes."),
         html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo.")
 
      ]),
@@ -59,7 +59,7 @@ app.layout = html.Div([
 
     # subject and radio button options to switch subject
     html.Div([
-        html.H3('Current subject'),
+        html.H4('Current subject'),
         html.Img(id='celeb'), dcc.RadioItems(
     options=[
         {'label': 'LeBron James', 'value': 'LeBron_James.csv'},
