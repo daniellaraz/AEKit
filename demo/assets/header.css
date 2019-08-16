@@ -24,11 +24,17 @@
 }
 
 h4 {
-    margin: 0px;
+    margin-bottom: 0px;
+    margin-top: 10px;
     padding:0px;
 }
 
-#result1, #result2, #result3, #result4, #result5, #result6, #result7, #result8, #result9, #result10 {
+
+#title {
+    margin-bottom: 15px;
+}
+
+#result1, #result2, #result3, #result4, #result5, #result6, #result7, #result8 {
   margin: 30px 30px 30px 30px;
   width: 125px;
   height: 125px;
@@ -36,7 +42,7 @@ h4 {
   text-align: center;
 }
 
-#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8, #img9, #img10 {
+#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8 {
   width: 125px;
   height: 125px;
 }
@@ -47,7 +53,7 @@ figcaption {
 
 #slider {
     justify-content: flex-end;
-    margin-top: 55px;
+    margin-top: 70px;
 }
 #slider-output-container {
     margin-top: 20px;

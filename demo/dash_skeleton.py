@@ -6,18 +6,6 @@ import pandas as pd
 import plotly.graph_objs as go
 import math
 
-# green = true match -DONE
-# add another picture into database -DONE
-# change 1-x for similarity scores - DONE
-# less similar (0.0) to more similar (1.5) -DONE
-# use "similar score" instead of "difference score" -DONE
-# closest match is green, everything above threshold but not closet is yellow -DONE
-# black for those below threshold - DONE
-# add things to look out for -DONE
-# steps in instructions -DONE
-
-
-#add a few people outside of the threshold (?)
 
 app = dash.Dash(__name__)
 app.title = 'Facial Recognition Demo'
@@ -26,7 +14,14 @@ app.title = 'Facial Recognition Demo'
 # introduction text
 app.layout = html.Div([
     html.Div([
-        html.H3('Facial Recognition False Positive Demo', id='title'),
+        html.H3('Facial Recognition Demo', id='title'),
+        html.Div([
+        html.Span('Purpose: ', style = {'font-weight': 'bold'}),
+        'The goal of this demo is to explain the process of determining matches using facial recognition software based on setting a minimum similarity score (',
+        html.Span('threshold), ', style = {"font-weight": 'bold'}),
+        html.Span('false positives, ', style = {'font-weight': 'bold'}),
+        "facial recognition software's bias against people, especially women, of color, and the philosophical problems with employing facial recognition software, regardless of accuracy rates."
+        ]),
         html.H4('Instructions:', id='instructions'),
         html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using open source facial recognition software."),
         html.Div([
@@ -35,26 +30,26 @@ app.layout = html.Div([
     "The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
     html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
     'are outlined in ',
-    html.Span('yellow', style={'background-color': 'yellow', 'font-weight': 'bold'}),
+    html.Span('red', style={'background-color': 'red', 'font-weight': 'bold'}),
     '. When the images match and are truly the same person, we call this a  ',
     html.Span('true match. True matches ', style={'font-weight': 'bold'}),
     'are outlined in ',
-    html.Span('green', style={'background-color': '#98FB98', 'font-weight': 'bold'}),
+    html.Span('green', style={'background-color': '#7FFF00', 'font-weight': 'bold'}),
     ". We refer to images with similarity scores that fall below the threshold and don't match as ",
     html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
     'fade and are outlined in ',
-    html.Span('black.', style={'font-weight': 'bold'}),
-
+    html.Span('black.', style={'font-weight': 'bold'})
 ]),
-        html.P("3. Notice differences in similarity scores of the 10 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when implementing the technology for surveillance or policing purposes."),
-        html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo.")
+        html.P("3. Notice differences in similarity scores of the 8 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when implementing the technology for surveillance or policing purposes."),
+        html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo."),
+        html.P("5. Consider that making facial recognition technology  more accurate for people, especially women, of color would not make the technology safe for use. [QUOTE] Facial recognition software makes it easier to police black and borwn communities, and more accurate facial recognition technology would only contribute to this issue.")
 
      ]),
 
     # stores current subject data
-    html.Div([ html.Div(id='current_data_similarity', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
-    html.Div(id='current_data_names', style={'display': 'none'}, children=['','','','','','','','','','']),
-    html.Div(id='current_match_values', style={'display': 'none'}, children=[False,False,False,False,False,False,False,False,False,False]),
+    html.Div([ html.Div(id='current_data_similarity', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
+    html.Div(id='current_data_names', style={'display': 'none'}, children=['','','','','','','','']),
+    html.Div(id='current_match_values', style={'display': 'none'}, children=[False,False,False,False,False,False,False,False]),
 
     # subject and radio button options to switch subject
     html.Div([
@@ -109,14 +104,6 @@ app.layout = html.Div([
             html.Img(id='img8'), html.Figcaption(id='name8'),
             html.Figcaption(id='sim8')
             ], id='result8', className = 'result8'),
-        html.Div([
-            html.Img(id='img9'), html.Figcaption(id='name9'),
-            html.Figcaption(id='sim9')
-            ], id='result9', className = 'result9'),
-        html.Div([
-            html.Img(id='img10'), html.Figcaption(id='name10'),
-            html.Figcaption(id='sim10')
-            ], id='result10', className = 'result10'),
             ],
             className = 'box'),
 
@@ -131,7 +118,16 @@ app.layout = html.Div([
      id='slider-output-container', className = 'slider'
     )], id = 'slider'),
 
+    html.Div([
+     html.H3('Case Studies'),
+     html.Div([
 
+     html.Span("ICE Uses Facial Recognition To Sift State Driver's License Record", style = {'font-weight': 'bold'}),
+     ": In July of 2019, researchers at Georgetown University Law Center found that Immigration and Customs Enforcement (ICE) agents mined millions of driver license photographs in search of facial recognition matches to target undocumented migrants who have legally obtained driver licenses. ICE did this illegaly, as they did not have congressional approval to access DMV databases of driver license photos. In this scenario, the use of facial recognition technology clearly put undocumented migrants at risk, and if the facial recognition software would have been more accurate the danger to undocumented migrants could have been even worse. Not only does facial recognition software work yes well on people of color, even if it is accurate, it's used to target communities of color. ",
+     dcc.Link('Read the NPR story here.', href='https://www.npr.org/2019/07/08/739491857/ice-uses-facial-recognition-to-sift-state-drivers-license-records-researchers-sa')
+     ]),
+     html.H4('Washington County Police Department')
+    ]),
 
     html.Div(
      html.H3('Resources')
@@ -141,7 +137,7 @@ app.layout = html.Div([
 
 #loads all images and slider with current subject
 @app.callback([Output('celeb', 'src'), Output('img1', 'src'), Output('img2', 'src'), Output('img3', 'src'), Output('img4', 'src'), Output('img5', 'src'),
-Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('img9', 'src'), Output('img10', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
+Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
 Output('threshold-slider', 'marks'), Output('current_data_similarity', 'children'), Output('current_data_names', 'children'), Output('current_match_values', 'children'), Output('threshold-slider', 'value')], [Input('subject_options', 'value')])
 def update_output(value):
     #data = load_data(value)
@@ -179,7 +175,7 @@ def update_output(value):
     images = results["File"]
 
     return [subject_image, images[0], images[1], images[2], images[3], images[4],
-        images[5], images[6], images[7], images[8], images[9], threshold_upper,
+        images[5], images[6], images[7], threshold_upper,
         step, steps, similarity, names, matches, 0.0]
 
 # threshold image 1
@@ -188,9 +184,9 @@ def update_output(value):
 def update_output(threshold, similarity, names, match):
     if similarity[0] >= threshold:
         if match[0]:
-            return {"border":"10px green solid"}, names[0], str(round(similarity[0], 3))
+            return {"border":"10px #7FFF00 solid"}, names[0], str(round(similarity[0], 3))
         else:
-            return {"border":"10px yellow solid"}, names[0], str(round(similarity[0], 3))
+            return {"border":"10px red solid"}, names[0], str(round(similarity[0], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[0], str(round(similarity[0], 3))
 
@@ -200,9 +196,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[1] >= threshold:
         if match[1]:
-            return {"border":"10px green solid"}, names[1], str(round(similarity[1], 3))
+            return {"border":"10px #7FFF00 solid"}, names[1], str(round(similarity[1], 3))
         else:
-            return {"border":"10px yellow solid"}, names[1], str(round(similarity[1], 3))
+            return {"border":"10px red solid"}, names[1], str(round(similarity[1], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[1], str(round(similarity[1], 3))
 
@@ -212,9 +208,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[2] >= threshold:
         if match[2]:
-            return {"border":"10px green solid"}, names[2], str(round(similarity[2], 3))
+            return {"border":"10px #7FFF00 solid"}, names[2], str(round(similarity[2], 3))
         else:
-            return {"border":"10px yellow solid"}, names[2], str(round(similarity[2], 3))
+            return {"border":"10px red solid"}, names[2], str(round(similarity[2], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[2], str(round(similarity[2], 3))
 
@@ -224,9 +220,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[3] >= threshold:
         if match[3]:
-            return {"border":"10px green solid"}, names[3], str(round(similarity[3], 3))
+            return {"border":"10px #7FFF00 solid"}, names[3], str(round(similarity[3], 3))
         else:
-            return {"border":"10px yellow solid"}, names[3], str(round(similarity[3], 3))
+            return {"border":"10px red solid"}, names[3], str(round(similarity[3], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[3], str(round(similarity[3], 3))
 
@@ -236,9 +232,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[4] >= threshold:
         if match[4]:
-            return {"border":"10px green solid"}, names[4], str(round(similarity[4], 3))
+            return {"border":"10px #7FFF00 solid"}, names[4], str(round(similarity[4], 3))
         else:
-            return {"border":"10px yellow solid"}, names[4], str(round(similarity[4], 3))
+            return {"border":"10px red solid"}, names[4], str(round(similarity[4], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[4], str(round(similarity[4], 3))
 
@@ -248,9 +244,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[5] >= threshold:
         if match[5]:
-            return {"border":"10px green solid"}, names[5], str(round(similarity[5], 3))
+            return {"border":"10px #7FFF00 solid"}, names[5], str(round(similarity[5], 3))
         else:
-            return {"border":"10px yellow solid"}, names[5], str(round(similarity[5], 3))
+            return {"border":"10px red solid"}, names[5], str(round(similarity[5], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[5], str(round(similarity[5], 3))
 
@@ -260,9 +256,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[6] >= threshold:
         if match[6]:
-            return {"border":"10px green solid"}, names[6], str(round(similarity[6], 3))
+            return {"border":"10px #7FFF00 solid"}, names[6], str(round(similarity[6], 3))
         else:
-            return {"border":"10px yellow solid"}, names[6], str(round(similarity[6], 3))
+            return {"border":"10px red solid"}, names[6], str(round(similarity[6], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[6], str(round(similarity[6], 3))
 
@@ -272,35 +268,35 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[7] >= threshold:
         if match[7]:
-            return {"border":"10px green solid"}, names[7], str(round(similarity[7], 3))
+            return {"border":"10px #7FFF00 solid"}, names[7], str(round(similarity[7], 3))
         else:
-            return {"border":"10px yellow solid"}, names[7], str(round(similarity[7], 3))
+            return {"border":"10px red solid"}, names[7], str(round(similarity[7], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[7], str(round(similarity[7], 3))
 
-#threshold image 9
-@app.callback([Output('img9', 'style'),Output('name9', 'children'), Output('sim9', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
-def update_output(threshold, similarity, names, match):
-    if similarity[8] >= threshold:
-        if match[8]:
-            return {"border":"10px green solid"}, names[8], str(round(similarity[8], 3))
-        else:
-            return {"border":"10px yellow solid"}, names[8], str(round(similarity[8], 3))
-    else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[8], str(round(similarity[8], 3))
-
-#threshold image 10
-@app.callback([Output('img10', 'style'),Output('name10', 'children'), Output('sim10', 'children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
-def update_output(threshold, similarity, names, match):
-    if similarity[9] >= threshold:
-        if match[9]:
-            return {"border":"10px green solid"}, names[9], str(round(similarity[9], 3))
-        else:
-            return {"border":"10px yellow solid"}, names[9], str(round(similarity[9], 3))
-    else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[9], str(round(similarity[9], 3))
+# #threshold image 9
+# @app.callback([Output('img9', 'style'),Output('name9', 'children'), Output('sim9', 'children')],
+#     [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+# def update_output(threshold, similarity, names, match):
+#     if similarity[8] >= threshold:
+#         if match[8]:
+#             return {"border":"10px #7FFF00 solid"}, names[8], str(round(similarity[8], 3))
+#         else:
+#             return {"border":"10px red solid"}, names[8], str(round(similarity[8], 3))
+#     else:
+#         return {"border":"10px black solid", "opacity": "0.2"}, names[8], str(round(similarity[8], 3))
+#
+# #threshold image 10
+# @app.callback([Output('img10', 'style'),Output('name10', 'children'), Output('sim10', 'children')],
+#     [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+# def update_output(threshold, similarity, names, match):
+#     if similarity[9] >= threshold:
+#         if match[9]:
+#             return {"border":"10px #7FFF00 solid"}, names[9], str(round(similarity[9], 3))
+#         else:
+#             return {"border":"10px red solid"}, names[9], str(round(similarity[9], 3))
+#     else:
+#         return {"border":"10px black solid", "opacity": "0.2"}, names[9], str(round(similarity[9], 3))
 
 # threshold text
 @app.callback(
