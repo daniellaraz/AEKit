@@ -179,6 +179,7 @@ def update_output(value):
 
     # upload corresponding images
     subject_image = results["Subject_File"][0]
+    print(subject_image)
     images = results["File"]
 
     return [subject_image, images[0], images[1], images[2], images[3], images[4],
