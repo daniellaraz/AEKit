@@ -124,9 +124,12 @@ app.layout = html.Div([
 
      html.Span("ICE Uses Facial Recognition To Sift State Driver's License Record", style = {'font-weight': 'bold'}),
      ": In July of 2019, researchers at Georgetown University Law Center found that Immigration and Customs Enforcement (ICE) agents mined millions of driver license photographs in search of facial recognition matches to target undocumented migrants who have legally obtained driver licenses. ICE did this illegaly, as they did not have congressional approval to access DMV databases of driver license photos. In this scenario, the use of facial recognition technology clearly put undocumented migrants at risk, and if the facial recognition software would have been more accurate the danger to undocumented migrants could have been even worse. Not only does facial recognition software work yes well on people of color, even if it is accurate, it's used to target communities of color. ",
-     dcc.Link('Read the NPR story here.', href='https://www.npr.org/2019/07/08/739491857/ice-uses-facial-recognition-to-sift-state-drivers-license-records-researchers-sa')
+     dcc.Link('Read news coverage of this case study here.', href='https://www.npr.org/2019/07/08/739491857/ice-uses-facial-recognition-to-sift-state-drivers-license-records-researchers-sa'),
      ]),
-     html.H4('Washington County Police Department')
+     html.H4(' '),
+     html.Span('Washington County Police Department', style = {'font-weight': 'bold'}),
+     "In 2017, the Washington County Police Department in Oregon pioneered the use of Amazon's facial recognition software tool, Rekognition, to compare surviellance footage of people's faces to a database of mugshot photos in an effort to identify burglarly suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo models, use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being target by law enforcement. The similarty threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 95% similarity threshold to identify suspects for law enforcement purposes, police departments are not required to follow these guidelines.",
+      dcc.Link('Read news coverage of this case study here.', href='https://www.npr.org/2019/07/08/739491857/ice-uses-facial-recognition-to-sift-state-drivers-license-records-researchers-sa'),
     ]),
 
     html.Div(
@@ -304,14 +307,6 @@ def update_output(threshold, similarity, names, match):
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(value):
     return 'Threshold: You have selected a minimum similiarity score to qualify for a match as "{}"'.format(value)
-
-# @app.callback(
-#     dash.dependencies.Output('subject', 'children'),
-#     [dash.dependencies.Input('celeb', 'n_clicks')])
-# def update_output(clicks):
-#     if clicks != None:
-#         return 'Clicked!'
-
 
 
 if __name__ == '__main__':
