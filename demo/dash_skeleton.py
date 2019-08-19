@@ -42,7 +42,7 @@ app.layout = html.Div([
 ]),
         html.P("3. Notice differences in similarity scores of the 8 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when implementing the technology for surveillance or policing purposes."),
         html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo."),
-        html.P("5. Consider that making facial recognition technology  more accurate for people, especially women, of color would not make the technology safe for use. [QUOTE] Facial recognition software makes it easier to police black and borwn communities, and more accurate facial recognition technology would only contribute to this issue.")
+        html.P("5. Consider that making facial recognition technology  more accurate for people, especially women, of color would not make the technology safe for use. Washington State Activist Maru Mora-Villalpando explains that facial recognition software makes it easier to police black and brown communities, and more accurate facial recognition technology would only contribute to this issue. Speaking specifically on the use of facial recognition technology to target undocumented immigrants, Mora-Villalpando emphasizes, 'We believe that Amazon is harming our communities if they continue with their push of selling this software [facial recognition] to ICE.'")
 
      ]),
 
@@ -128,7 +128,7 @@ app.layout = html.Div([
      ]),
      html.H4(' '),
      html.Span('Washington County Police Department', style = {'font-weight': 'bold'}),
-     "In 2017, the Washington County Police Department in Oregon pioneered the use of Amazon's facial recognition software tool, Rekognition, to compare surviellance footage of people's faces to a database of mugshot photos in an effort to identify burglarly suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo models, use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being target by law enforcement. The similarty threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 99% similarity threshold to identify suspects for law enforcement purposes, police departments are not required to follow these guidelines.",
+     "In 2017, the Washington County Police Department in Oregon pioneered the use of Amazon's facial recognition software tool, Rekognition, to compare surviellance footage of people's faces to a database of mugshot photos in an effort to identify burglarly suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo models, use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being target by law enforcement. The similarty threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 99% similarity threshold to identify suspects for law enforcement purposes, police departments are not required to follow these guidelines. ",
      dcc.Link('Washington Post Coverage featured in Oregon Live, ', href='https://www.oregonlive.com/washingtoncounty/2019/05/amazons-facial-recognition-technology-is-supercharging-washington-county-police.html'),
      dcc.Link('KGW  Portland Coverage, ', href='https://www.kgw.com/article/money/aclu-calls-out-amazon-washington-co-sheriffs-office-for-facial-recognition-tech/283-557099068'),
      dcc.Link('Official Amazon guidelines', href = 'https://docs.aws.amazon.com/rekognition/latest/dg/collections.html')
@@ -136,9 +136,16 @@ app.layout = html.Div([
 
     ]),
 
-    html.Div(
-     html.H3('Resources')
-    )
+    html.Div([
+     html.H3('Resources'),
+     html.Div([
+     html.Span("Facial Recognition Model", style = {'font-weight': 'bold'}),
+     ": We used Open Face's Open Source Facial Recognition model to run our images and determine matches. We ran Open Face's model using a Docker container. We edited Open Face's image comparison Python file to only compare one specieifed image against the entire dataset of images, instead of each image in the dataset to every other image.",
+     html.H4(' '),
+     html.Span("Images", style = {'font-weight': 'bold'}),
+     ": We obtained nearly all our images from Labeled Faces in the Wild, an  open dataset of celebrity photos. For celebrity subjects who did not have more than one photo in the Labeled Faces in the Wild dataset, we supplemented with images from Google Image searches."
+     ]),
+    ])
     ], id='main_wrapper')
 ])
 
@@ -179,7 +186,6 @@ def update_output(value):
 
     # upload corresponding images
     subject_image = results["Subject_File"][0]
-    print(subject_image)
     images = results["File"]
 
     return [subject_image, images[0], images[1], images[2], images[3], images[4],
