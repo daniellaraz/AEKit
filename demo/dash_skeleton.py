@@ -20,21 +20,21 @@ app.layout = html.Div([
         'The goal of this demo is to explain the process of determining matches using facial recognition technology based on setting a minimum similarity score (',
         html.Span('threshold), ', style = {"font-weight": 'bold'}),
         html.Span('false positives, ', style = {'font-weight': 'bold'}),
-        "facial recognition technology's bias against people, especially women, of color, and the philosophical problems with employing facial recognition technology, regardless of accuracy rates."
+        "facial recognition's bias against people, especially women, of color, and the philosophical problems with employing facial recognition systems, regardless of accuracy rates."
         ]),
         html.H4('Instructions:', id='instructions'),
-        html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using open source facial recognition software."),
+        html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using an open source facial recognition system."),
         html.Div([
     "2. Move the slider by clicking on the number intervals to change the minimum similarity required between the celebrity subject and each image to qualify as a match, which we refer to as the",
     html.Span(" threshold. ", style = {"font-weight": "bold"}),
     "The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
     html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
     'are outlined in ',
-    html.Span('red', style={'background-color': 'red', 'font-weight': 'bold'}),
+    html.Span('red', style={'background-color': '#D34640', 'font-weight': 'bold'}),
     '. When the images match and are truly the same person, we call this a  ',
-    html.Span('true match. True matches ', style={'font-weight': 'bold'}),
+    html.Span('true positive. True positives ', style={'font-weight': 'bold'}),
     'are outlined in ',
-    html.Span('green', style={'background-color': '#7FFF00', 'font-weight': 'bold'}),
+    html.Span('green', style={'background-color': '#A6CA45', 'font-weight': 'bold'}),
     ". We refer to images with similarity scores that fall below the threshold and don't match as ",
     html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
     'fade and are outlined in ',
@@ -129,8 +129,8 @@ app.layout = html.Div([
      ]),
      html.H4(' '),
      html.Span('Washington County Police Department', style = {'font-weight': 'bold'}),
-     ": In 2017, the Washington County Police Department in Oregon pioneered the use of Amazon's facial recognition software tool, Rekognition, to compare surveillance footage of people's faces to a database of mug shot photos to identify burglary suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo illustrates, the use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being targeted by law enforcement. The similarity threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 99% similarity threshold to identify suspects for law enforcement purposes, police departments are not required to follow these guidelines. ",
-     dcc.Link('Washington Post Coverage featured in Oregon Live, ', href='https://www.oregonlive.com/washingtoncounty/2019/05/amazons-facial-recognition-technology-is-supercharging-washington-county-police.html'),
+     ": In 2017, the Washington County Police Department in Oregon pionee#D34640 the use of Amazon's facial recognition software tool, Rekognition, to compare surveillance footage of people's faces to a database of mug shot photos to identify burglary suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo illustrates, the use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being targeted by law enforcement. The similarity threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 99% similarity threshold to identify suspects for law enforcement purposes, police departments are not requi#D34640 to follow these guidelines. ",
+     dcc.Link('Washington Post Coverage featu#D34640 in Oregon Live, ', href='https://www.oregonlive.com/washingtoncounty/2019/05/amazons-facial-recognition-technology-is-supercharging-washington-county-police.html'),
      dcc.Link('KGW  Portland Coverage, ', href='https://www.kgw.com/article/money/aclu-calls-out-amazon-washington-co-sheriffs-office-for-facial-recognition-tech/283-557099068'),
      dcc.Link('Official Amazon guidelines', href = 'https://docs.aws.amazon.com/rekognition/latest/dg/collections.html')
 
@@ -198,9 +198,9 @@ def update_output(value):
 def update_output(threshold, similarity, names, match):
     if similarity[0] >= threshold:
         if match[0]:
-            return {"border":"10px #7FFF00 solid"}, names[0], str(round(similarity[0], 3))
+            return {"border":"10px #A6CA45 solid"}, names[0], str(round(similarity[0], 3))
         else:
-            return {"border":"10px red solid"}, names[0], str(round(similarity[0], 3))
+            return {"border":"10px #D34640 solid"}, names[0], str(round(similarity[0], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[0], str(round(similarity[0], 3))
 
@@ -210,9 +210,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[1] >= threshold:
         if match[1]:
-            return {"border":"10px #7FFF00 solid"}, names[1], str(round(similarity[1], 3))
+            return {"border":"10px #A6CA45 solid"}, names[1], str(round(similarity[1], 3))
         else:
-            return {"border":"10px red solid"}, names[1], str(round(similarity[1], 3))
+            return {"border":"10px #D34640 solid"}, names[1], str(round(similarity[1], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[1], str(round(similarity[1], 3))
 
@@ -222,9 +222,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[2] >= threshold:
         if match[2]:
-            return {"border":"10px #7FFF00 solid"}, names[2], str(round(similarity[2], 3))
+            return {"border":"10px #A6CA45 solid"}, names[2], str(round(similarity[2], 3))
         else:
-            return {"border":"10px red solid"}, names[2], str(round(similarity[2], 3))
+            return {"border":"10px #D34640 solid"}, names[2], str(round(similarity[2], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[2], str(round(similarity[2], 3))
 
@@ -234,9 +234,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[3] >= threshold:
         if match[3]:
-            return {"border":"10px #7FFF00 solid"}, names[3], str(round(similarity[3], 3))
+            return {"border":"10px #A6CA45 solid"}, names[3], str(round(similarity[3], 3))
         else:
-            return {"border":"10px red solid"}, names[3], str(round(similarity[3], 3))
+            return {"border":"10px #D34640 solid"}, names[3], str(round(similarity[3], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[3], str(round(similarity[3], 3))
 
@@ -246,9 +246,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[4] >= threshold:
         if match[4]:
-            return {"border":"10px #7FFF00 solid"}, names[4], str(round(similarity[4], 3))
+            return {"border":"10px #A6CA45 solid"}, names[4], str(round(similarity[4], 3))
         else:
-            return {"border":"10px red solid"}, names[4], str(round(similarity[4], 3))
+            return {"border":"10px #D34640 solid"}, names[4], str(round(similarity[4], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[4], str(round(similarity[4], 3))
 
@@ -258,9 +258,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[5] >= threshold:
         if match[5]:
-            return {"border":"10px #7FFF00 solid"}, names[5], str(round(similarity[5], 3))
+            return {"border":"10px #A6CA45 solid"}, names[5], str(round(similarity[5], 3))
         else:
-            return {"border":"10px red solid"}, names[5], str(round(similarity[5], 3))
+            return {"border":"10px #D34640 solid"}, names[5], str(round(similarity[5], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[5], str(round(similarity[5], 3))
 
@@ -270,9 +270,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[6] >= threshold:
         if match[6]:
-            return {"border":"10px #7FFF00 solid"}, names[6], str(round(similarity[6], 3))
+            return {"border":"10px #A6CA45 solid"}, names[6], str(round(similarity[6], 3))
         else:
-            return {"border":"10px red solid"}, names[6], str(round(similarity[6], 3))
+            return {"border":"10px #D34640 solid"}, names[6], str(round(similarity[6], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[6], str(round(similarity[6], 3))
 
@@ -282,9 +282,9 @@ def update_output(threshold, similarity, names, match):
 def update_output(threshold, similarity, names, match):
     if similarity[7] >= threshold:
         if match[7]:
-            return {"border":"10px #7FFF00 solid"}, names[7], str(round(similarity[7], 3))
+            return {"border":"10px #A6CA45 solid"}, names[7], str(round(similarity[7], 3))
         else:
-            return {"border":"10px red solid"}, names[7], str(round(similarity[7], 3))
+            return {"border":"10px #D34640 solid"}, names[7], str(round(similarity[7], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[7], str(round(similarity[7], 3))
 
