@@ -120,7 +120,7 @@ app.layout = html.Div([
     )], id = 'slider')], id = "interactive"),
 
     html.Div([
-     html.H3('Case Studies'),
+     html.H3('Case Studies:'),
      html.Div([
 
      html.Span("ICE Uses Facial Recognition To Sift State Driver's License Record", style = {'font-weight': 'bold'}),
@@ -138,7 +138,7 @@ app.layout = html.Div([
     ], id = "case_studies"),
 
     html.Div([
-     html.H3('Resources'),
+     html.H3('Resources:'),
      html.Div([
      html.Span("Facial Recognition Model", style = {'font-weight': 'bold'}),
      ": We used Open Face's Open Source Facial Recognition model to run our images and determine matches. We ran Open Face's model using a Docker container. We edited Open Face's image comparison Python file to only compare one specified image against the entire dataset of images, instead of each image in the dataset to every other image.",
@@ -287,30 +287,6 @@ def update_output(threshold, similarity, names, match):
             return {"border":"10px red solid"}, names[7], str(round(similarity[7], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[7], str(round(similarity[7], 3))
-
-# #threshold image 9
-# @app.callback([Output('img9', 'style'),Output('name9', 'children'), Output('sim9', 'children')],
-#     [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
-# def update_output(threshold, similarity, names, match):
-#     if similarity[8] >= threshold:
-#         if match[8]:
-#             return {"border":"10px #7FFF00 solid"}, names[8], str(round(similarity[8], 3))
-#         else:
-#             return {"border":"10px red solid"}, names[8], str(round(similarity[8], 3))
-#     else:
-#         return {"border":"10px black solid", "opacity": "0.2"}, names[8], str(round(similarity[8], 3))
-#
-# #threshold image 10
-# @app.callback([Output('img10', 'style'),Output('name10', 'children'), Output('sim10', 'children')],
-#     [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
-# def update_output(threshold, similarity, names, match):
-#     if similarity[9] >= threshold:
-#         if match[9]:
-#             return {"border":"10px #7FFF00 solid"}, names[9], str(round(similarity[9], 3))
-#         else:
-#             return {"border":"10px red solid"}, names[9], str(round(similarity[9], 3))
-#     else:
-#         return {"border":"10px black solid", "opacity": "0.2"}, names[9], str(round(similarity[9], 3))
 
 # threshold text
 @app.callback(
