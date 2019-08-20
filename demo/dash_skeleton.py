@@ -17,15 +17,15 @@ app.layout = html.Div([
         html.H3('Facial Recognition Demo', id='title'),
         html.Div([
         html.Span('Purpose: ', style = {'font-weight': 'bold'}),
-        'The goal of this demo is to explain the process of determining matches using facial recognition software based on setting a minimum similarity score (',
+        'The goal of this demo is to explain the process of determining matches using facial recognition technology based on setting a minimum similarity score (',
         html.Span('threshold), ', style = {"font-weight": 'bold'}),
         html.Span('false positives, ', style = {'font-weight': 'bold'}),
-        "facial recognition software's bias against people, especially women, of color, and the philosophical problems with employing facial recognition software, regardless of accuracy rates."
+        "facial recognition technology's bias against people, especially women, of color, and the philosophical problems with employing facial recognition technology, regardless of accuracy rates."
         ]),
         html.H4('Instructions:', id='instructions'),
         html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using open source facial recognition software."),
         html.Div([
-    "2. Move the slider by clicking on the number intervals to change the minimum similarity required between the subject and each image to qualify as a match, which we refer to as the",
+    "2. Move the slider by clicking on the number intervals to change the minimum similarity required between the celebrity subject and each image to qualify as a match, which we refer to as the",
     html.Span(" threshold. ", style = {"font-weight": "bold"}),
     "The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
     html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
@@ -40,9 +40,9 @@ app.layout = html.Div([
     'fade and are outlined in ',
     html.Span('black.', style={'font-weight': 'bold'})
 ]),
-        html.P("3. Notice differences in similarity scores of the 8 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher simliarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself. The racial and gender disparities in accuracy of facial recognition technology can result in negative societal impacts when implementing the technology for surveillance or policing purposes."),
+        html.P("3. Notice differences in similarity scores of the 8 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher similarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself."),
         html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo."),
-        html.P("5. Consider that making facial recognition technology  more accurate for people, especially women, of color would not make the technology safe for use. Washington State Activist Maru Mora-Villalpando explains that facial recognition software makes it easier to police black and brown communities, and more accurate facial recognition technology would only contribute to this issue. Speaking specifically on the use of facial recognition technology to target undocumented immigrants, Mora-Villalpando emphasizes, 'We believe that Amazon is harming our communities if they continue with their push of selling this software [facial recognition] to ICE.'")
+        html.P("5. Consider that making facial recognition technology  more accurate for people, especially women, of color would not make the technology safe for use. Washington State Activist Maru Mora-Villalpando explains that facial recognition exacerbates the policing of black and brown communities, and more accurate facial recognition technology would only contribute to this issue. Speaking specifically on the use of facial recognition technology to target undocumented immigrants, Mora-Villalpando emphasizes, 'We believe that Amazon is harming our communities if they continue with their push of selling this software [facial recognition] to ICE.'")
 
      ]),
 
@@ -123,12 +123,12 @@ app.layout = html.Div([
      html.Div([
 
      html.Span("ICE Uses Facial Recognition To Sift State Driver's License Record", style = {'font-weight': 'bold'}),
-     ": In July of 2019, researchers at Georgetown University Law Center found that Immigration and Customs Enforcement (ICE) agents mined millions of driver license photographs in search of facial recognition matches to target undocumented migrants who have legally obtained driver licenses. ICE did this illegaly, as they did not have congressional approval to access DMV databases of driver license photos. In this scenario, the use of facial recognition technology clearly put undocumented migrants at risk, and if the facial recognition software would have been more accurate the danger to undocumented migrants could have been even worse. Not only does facial recognition software work yes well on people of color, even if it is accurate, it's used to target communities of color. ",
+     ": In July of 2019, researchers at Georgetown University Law Center found that Immigration and Customs Enforcement (ICE) agents mined millions of driver license photographs in search of facial recognition matches to target undocumented migrants who have legally obtained driver licenses. ICE did this illegally, as they did not have congressional approval to access DMV databases of driver license photos. In this scenario, the use of facial recognition technology clearly put undocumented migrants at risk, and increased accuracy of the facial recognition software would have heightened the danger towards undocumented migrants. Not only does facial recognition software work less well on people of color, even if it is accurate, it's used to target communities of color. ",
      dcc.Link('Read the NPR news coverage of this case study here.', href='https://www.npr.org/2019/07/08/739491857/ice-uses-facial-recognition-to-sift-state-drivers-license-records-researchers-sa'),
      ]),
      html.H4(' '),
      html.Span('Washington County Police Department', style = {'font-weight': 'bold'}),
-     "In 2017, the Washington County Police Department in Oregon pioneered the use of Amazon's facial recognition software tool, Rekognition, to compare surviellance footage of people's faces to a database of mugshot photos in an effort to identify burglarly suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo models, use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being target by law enforcement. The similarty threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 99% similarity threshold to identify suspects for law enforcement purposes, police departments are not required to follow these guidelines. ",
+     ": In 2017, the Washington County Police Department in Oregon pioneered the use of Amazon's facial recognition software tool, Rekognition, to compare surveillance footage of people's faces to a database of mug shot photos to identify burglary suspects. Oregon Live reports that deputies are permitted to run artist sketches into the search. As our demo illustrates, the use of facial recognition software often results in false positives, putting innocent people at risk for being targeted and arrested. Since the software is less accurate on people of color, this community faces a heightened risk of being targeted by law enforcement. The similarity threshold that the police department uses impacts their rate of false positives. Although Amazon recommends only using its Rekognition tool with a 99% similarity threshold to identify suspects for law enforcement purposes, police departments are not required to follow these guidelines. ",
      dcc.Link('Washington Post Coverage featured in Oregon Live, ', href='https://www.oregonlive.com/washingtoncounty/2019/05/amazons-facial-recognition-technology-is-supercharging-washington-county-police.html'),
      dcc.Link('KGW  Portland Coverage, ', href='https://www.kgw.com/article/money/aclu-calls-out-amazon-washington-co-sheriffs-office-for-facial-recognition-tech/283-557099068'),
      dcc.Link('Official Amazon guidelines', href = 'https://docs.aws.amazon.com/rekognition/latest/dg/collections.html')
@@ -140,7 +140,7 @@ app.layout = html.Div([
      html.H3('Resources'),
      html.Div([
      html.Span("Facial Recognition Model", style = {'font-weight': 'bold'}),
-     ": We used Open Face's Open Source Facial Recognition model to run our images and determine matches. We ran Open Face's model using a Docker container. We edited Open Face's image comparison Python file to only compare one specieifed image against the entire dataset of images, instead of each image in the dataset to every other image.",
+     ": We used Open Face's Open Source Facial Recognition model to run our images and determine matches. We ran Open Face's model using a Docker container. We edited Open Face's image comparison Python file to only compare one specified image against the entire dataset of images, instead of each image in the dataset to every other image.",
      html.H4(' '),
      html.Span("Images", style = {'font-weight': 'bold'}),
      ": We obtained nearly all our images from Labeled Faces in the Wild, an  open dataset of celebrity photos. For celebrity subjects who did not have more than one photo in the Labeled Faces in the Wild dataset, we supplemented with images from Google Image searches."
@@ -317,7 +317,7 @@ def update_output(threshold, similarity, names, match):
     dash.dependencies.Output('slider-output-container', 'children'),
     [dash.dependencies.Input('threshold-slider', 'value')])
 def update_output(value):
-    return 'Threshold: You have selected a minimum similiarity score to qualify for a match as "{}"'.format(value)
+    return 'Threshold: You have selected a minimum similarity score to qualify for a match as "{}"'.format(value)
 
 
 if __name__ == '__main__':
