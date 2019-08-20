@@ -17,12 +17,17 @@
  }
 
 .box {
-    margin-left: 350px;
-    /*width: 900px;*/
+    /*margin-left: 350px;*/
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
 }
+ #interactive {
+     background-color: #ffffff;
+     border-style: solid;
+ }
+
+
 
 h4 {
     margin-bottom: 0px;
@@ -31,6 +36,9 @@ h4 {
 
 }
 
+#title{
+    font-weight: bold;
+}
 
 #title {
     margin-bottom: 15px;

@@ -14,7 +14,7 @@ app.title = 'Facial Recognition Demo'
 # introduction text
 app.layout = html.Div([
     html.Div([
-        html.H3('Facial Recognition Demo', id='title'),
+        html.H2('Facial Recognition Demo', id='title'),
         html.Div([
         html.Span('Purpose: ', style = {'font-weight': 'bold'}),
         'The goal of this demo is to explain the process of determining matches using facial recognition technology based on setting a minimum similarity score (',
@@ -116,7 +116,7 @@ app.layout = html.Div([
         value = 0.0
     ), html.Div(
      id='slider-output-container', className = 'slider'
-    )], id = 'slider'),
+    )], id = 'slider')], id = "interactive"),
 
     html.Div([
      html.H3('Case Studies'),
@@ -134,7 +134,7 @@ app.layout = html.Div([
      dcc.Link('Official Amazon guidelines', href = 'https://docs.aws.amazon.com/rekognition/latest/dg/collections.html')
 
 
-    ]),
+    ], id = "case_studies"),
 
     html.Div([
      html.H3('Resources'),
@@ -145,8 +145,7 @@ app.layout = html.Div([
      html.Span("Images", style = {'font-weight': 'bold'}),
      ": We obtained nearly all our images from Labeled Faces in the Wild, an  open dataset of celebrity photos. For celebrity subjects who did not have more than one photo in the Labeled Faces in the Wild dataset, we supplemented with images from Google Image searches."
      ]),
-    ])
-    ], id='main_wrapper')
+    ], id = "resources")
 ])
 
 #loads all images and slider with current subject

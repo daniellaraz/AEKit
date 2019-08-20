@@ -1,7 +1,4 @@
 body {
     font-family: sans-serif;
-}
-@font-face {
-  font-family: apercu;
-  src: url("apercu-light.ttf");
+    background-color: #eeeeee;
 }
