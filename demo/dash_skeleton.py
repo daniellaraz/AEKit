@@ -59,6 +59,7 @@ app.layout = html.Div([
         {'label': 'LeBron James', 'value': 'LeBron_James.csv'},
         {'label': 'Lisa Leslie', 'value': 'Lisa_Leslie.csv'},
         {'label': 'Paris Hilton', 'value': 'Paris_Hilton.csv'},
+        {'label': 'Jennifer Lopez', 'value': 'Jennifer_Lopez.csv'},
         {'label': 'Aaron Peirsol', 'value': 'Aaron_Peirsol.csv'},
         {'label': 'Jacqueline Edwards', 'value': 'Jacqueline_Edwards.csv'},
         {'label': 'Kalpana Chawla', 'value': 'Kalpana_Chawla.csv'},
