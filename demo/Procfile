@@ -1,1 +1,1 @@
-web: python dash_skeleton.py
+web: gunicorn dash_skeleton:server
