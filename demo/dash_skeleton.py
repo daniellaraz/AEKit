@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.graph_objs as go
 import math
+import os
 
 
 app = dash.Dash(__name__)
@@ -297,4 +298,5 @@ def update_output(value):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    port = os.environ.get('PORT') or 8035
+    app.run_server(port=port, debug=True)
