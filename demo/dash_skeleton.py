@@ -155,9 +155,10 @@ app.layout = html.Div([
 Output('img6', 'src'), Output('img7', 'src'), Output('img8', 'src'), Output('threshold-slider', 'max'), Output('threshold-slider', 'step'),
 Output('threshold-slider', 'marks'), Output('current_data_similarity', 'children'), Output('current_data_names', 'children'), Output('current_match_values', 'children'), Output('threshold-slider', 'value')], [Input('subject_options', 'value')])
 def update_output(value):
+    print("updating output: ", value)
     #data = load_data(value)
     results = pd.read_csv(value)
-
+    print("updated value: ", value)
     #gather names
     names = results['Name']
 
@@ -299,4 +300,4 @@ def update_output(value):
 
 if __name__ == '__main__':
     port = os.environ.get('PORT') or 8035
-    app.run_server(port=port, debug=True)
+    app.run_server(port=port)
