@@ -23,7 +23,7 @@ app.layout = html.Div([
         'The goal of this demo is to illustrate the process of determining matches using facial recognition technology using a minimum similarity score, which is described in greater detail below (',
         html.Span('threshold), ', style = {"font-weight": 'bold'}),
         html.Span('false positives, ', style = {'font-weight': 'bold'}),
-        "Particularly problematic is the bias of facial recognition software against people of color, in particular women of color, and the moral and ethical challenges of facial recognition systems, regardless of their accuracy rates. By allowing users of this web demo to manipulate "
+        "Particularly problematic is the bias of facial recognition software against people of color, specifically women of color, and the moral and ethical challenges of facial recognition systems, regardless of their accuracy rates. By allowing users of this web demo to manipulate "
         ]),
         html.H4('Instructions:', id='instructions'),
         html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using an open source facial recognition system."),
