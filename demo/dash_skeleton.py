@@ -209,14 +209,14 @@ def update_output(threshold, similarity, names, match):
         return {"border":"10px black solid", "opacity": "0.2"}, names[0], str(round(similarity[0], 3))
 
 #threshold image 2
-@app.callback([Output('img2', 'style'),Output('name2', 'children'), Output('sim2', 'children'), Output('sim2', 'children')],
+@app.callback([Output('img2', 'style'),Output('name2', 'children'), Output('sim2', 'children')],
     [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
 def update_output(threshold, similarity, names, match):
     if similarity[1] >= threshold:
         if match[1]:
-            return {"border":"10px #A6CA45 solid"}, names[1], str(round(similarity[1], 3)), str("MATCH")
+            return {"border":"10px #A6CA45 solid"}, names[1], str(round(similarity[1], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[1], str(round(similarity[1], 3)), str("MATCH")
+            return {"border":"10px #D34640 solid"}, names[1], str(round(similarity[1], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[1], str(round(similarity[1], 3))
 
