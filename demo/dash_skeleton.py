@@ -20,10 +20,10 @@ app.layout = html.Div([
         html.H2('Facial Recognition Demo', id='title'),
         html.Div([
         html.Span('Purpose: ', style = {'font-weight': 'bold'}),
-        'The goal of this demo is to explain the process of determining matches using facial recognition technology based on setting a minimum similarity score (',
+        'The goal of this demo is to illustrate the process of determining matches using facial recognition technology using a minimum similarity score, which is described in greater detail below (',
         html.Span('threshold), ', style = {"font-weight": 'bold'}),
         html.Span('false positives, ', style = {'font-weight': 'bold'}),
-        "facial recognition's bias against people, especially women, of color, and the philosophical problems with employing facial recognition systems, regardless of accuracy rates."
+        "Particularly problematic is the bias of facial recognition software against people of color, in particular women of color, and the moral and ethical challenges of facial recognition systems, regardless of their accuracy rates. By allowing users of this web demo to manipulate "
         ]),
         html.H4('Instructions:', id='instructions'),
         html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using an open source facial recognition system."),
