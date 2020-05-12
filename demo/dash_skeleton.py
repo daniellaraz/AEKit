@@ -17,46 +17,69 @@ server = app.server
 # introduction text
 app.layout = html.Div([
     html.Div([
-        html.H2('Facial Recognition Demo', id='title'),
+        html.H2("Facial Recognition Demo", id='title', style={'font-family': 'Monaco'}),
+        # purpose section
         html.Div([
-        html.Span('Purpose: ', style = {'font-weight': 'bold'}),
-        'The goal of this demo is to illustrate the process of determining matches using facial recognition technology using a minimum similarity score, which is described in greater detail below (',
-        html.Span('threshold), ', style = {"font-weight": 'bold'}),
-        html.Span('false positives, ', style = {'font-weight': 'bold'}),
-        "Particularly problematic is the bias of facial recognition software against people of color, specifically women of color, and the moral and ethical challenges of facial recognition systems, regardless of their accuracy rates. By allowing users of this web demo to manipulate "
-        ]),
-        html.H4('Instructions:', id='instructions'),
-        html.P("1. Enter full screen in your browser. Listed below each celebrity name is the similarity score that resulted from comparing that image to the current subject using an open source facial recognition system."),
+            html.H3("Purpose: ", id = 'purpose', style = {'font-weight': 'bold', 'font-family': 'Monaco'}),
+            html.P("The goal of this demo is to highlight some of the harms of facial recognition systems. Though there are many issues with facial recognition software, this tool demonstrates two in particular. "),
+            html.Span("First, ", style={'font-weight': 'bold'}),
+            "we illustrate how facial recognition software relies on thresholds, which are often arbitrarily set, to determine whether two faces in a photo are a match. ",
+            "At its simplest, two images are compared and given a numerical value on a continuous scale that represents how similar the images are. ",
+            "A cut-off value is selected, meaning that any similarity score greater than that cut-off value will be considered a match, and anything below or equal to that value is not considered a match. ",
+            "But, what decides this cut-off value? ",
+                ]),
         html.Div([
-    "2. Move the slider by clicking on the number intervals to change the minimum similarity required between the celebrity subject and each image to qualify as a match, which we refer to as the",
-    html.Span(" threshold. ", style = {"font-weight": "bold"}),
-    "The larger the similarity score is, the more similar two images are. We refer to images that match according to the similarity threshold, but aren't really the same person, as ",
-    html.Span('false positives. False positives ', style={'font-weight': 'bold'}),
-    'are outlined in ',
-    html.Span('red', style={'background-color': '#D34640', 'font-weight': 'bold'}),
-    '. When the images match and are truly the same person, we call this a  ',
-    html.Span('true positive. True positives ', style={'font-weight': 'bold'}),
-    'are outlined in ',
-    html.Span('green', style={'background-color': '#A6CA45', 'font-weight': 'bold'}),
-    ". We refer to images with similarity scores that fall below the threshold and don't match as ",
-    html.Span('non-matches. Non-matches ', style={'font-weight': 'bold'}),
-    'fade and are outlined in ',
-    html.Span('black.', style={'font-weight': 'bold'})
-]),
-        html.P("3. Notice differences in similarity scores of the 8 images for subjects of different skin tones and genders. Research shows facial recognition software to have lower accuracy for people, especially women, of color. For instance, notice how when Jacqueline Edwards is the subject, Kelly White has a higher similarity score to Jacqueline Edwards than a different picture of Jacqueline Edwards to herself."),
-        html.P("4. Analyze a different subject by choosing from the subject options on the left side of the demo."),
-        html.P("5. Consider that making facial recognition technology  more accurate for people, especially women, of color would not make the technology safe for use. Washington State Activist Maru Mora-Villalpando explains that facial recognition exacerbates the policing of black and brown communities, and more accurate facial recognition technology would only contribute to this issue. Speaking specifically on the use of facial recognition technology to target undocumented immigrants, Mora-Villalpando emphasizes, 'We believe that Amazon is harming our communities if they continue with their push of selling this software [facial recognition] to ICE.'")
+             html.Span("Second, ", style={"font-weight": "bold"}), 
+             " we demonstrate, as has been shown in academic and policy literature, that facial recognition software misidentifies people of color, specifically women of color, more often than it does white people. Yet, facial recognition is frequently used to police black and brown communities - the very people the software identifies most poorly.", 
+            ]),
+        # terms to know section
+        html.Div([
+            html.H3("Terms to Know: ", id = "terms", style = {'font-weight': 'bold', 'font-family': 'Monaco'}),
+            html.P("The following are some helpful terms for better understanding this demo."),
+            html.Span("Similarity Score: ", style={'font-weight': 'bold'}),
+            " a value ",
+            "    ",
+                ]),
+        html.Div([
+             html.Span("False Positive: ", style={"font-weight": "bold"}), 
+             "occurs when images that are not of the same person are incorrectly labeled as a match because their similarity score exceeded the minimum required to be considered a match.", 
+            ]),
+        html.Div([
+             html.Span("True Positive: ", style={"font-weight": "bold"}), 
+             "occurs when two images, which are indeed of the same person, are correctly labeled as a match. ", 
+            "In our demo, true positives are outlined in ",
+             html.Span('green', style={'background-color': '#A6CA45', 'font-weight': 'bold'}),
+            ]),    
 
-     ]),
+        # instructions section
+        html.H3('Instructions:', id='instructions', style={'font-family': 'Monaco'}),        
+        html.P("1. Enter full screen in your browser. You'll see the demo has 3 main sections - 'Current Subject, 'Matches', and 'Threshold'. "),
+        html.Div([
+            "2. Under 'Matches' you'll see those faces that have matched with the face under 'Current Subject'. Below each match is the similarity score between the 'Current Subject' and that match. For ease of interpretation, in this demo the larger the similarity score, the more similar two images are. The only true positive match is that which is outlined in green. All other matches are false positives.",
+                ]),
+        html.P("3. In the 'Threshold' section you'll see a slider. Move the slider by clicking on the numbered intervals. This changes the minimum similarity score required in order to be considered a match. As you move the slider, you'll see some matches fade away as their similarity score exceeds the minimum threshold you've set. "),
+        html.P("4. Under 'Current Subject', you'll see a list of other options. Click through the diverse list of celebrities, playing around with the threshold slider as well. Take note of how effecitvely, or ineffectively, the software identifies true matches. "),
+            ]),
+
+
+        # questions to consider section
+        html.Div([
+            html.H3("Questions to Consider: ", id = "questions", style = {'font-weight': 'bold', 'font-family': 'Monaco'}),
+            html.P("While you use this demo, consider the following questions."),
+            html.P("1. Compare similarity scores and thresholds across 'Current Subjects' of different races and ethnicities. What is the lowest threshold at which the software correctly identifies Aaron Piersol's face among the potential matches? What is the lowest threshold at which the software correctly identifies LeBron James' face among the potential matches? Finally, what is the lowest threshold at which the software correctly identifies Jacqueline Edwards' face among the potential matches?"),
+            html.P("2. Consider whether making facial recognition software more accurate for people of color would actually make the technology safe to use. More accurate facial recognition software that better identifies faces could contribute to policing and surveillance of communities of color, undocumented immigrants, and others. Does such a software have a place in our society?")
+                ]),
+
+
 
     # stores current subject data
     html.Div([ html.Div(id='current_data_similarity', style={'display': 'none'}, children=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]),
     html.Div(id='current_data_names', style={'display': 'none'}, children=['','','','','','','','']),
     html.Div(id='current_match_values', style={'display': 'none'}, children=[False,False,False,False,False,False,False,False]),
 
-    # subject and radio button options to switch subject
+#    subject and radio button options to switch subject 
     html.Div([
-        html.H4('Current subject'),
+        html.H4('Current Subject:'),
         html.Img(id='celeb'), dcc.RadioItems(
     options=[
         {'label': 'LeBron James', 'value': 'LeBron_James.csv'},
@@ -70,11 +93,17 @@ app.layout = html.Div([
         {'label': 'Katie Couric', 'value': 'Katie_Couric.csv'},
         {'label': 'Vicki Zhao Wei', 'value': 'Vicki_Zhao_Wei.csv'}
     ],
-    value='LeBron_James.csv',id = 'subject_options'
+    value='LeBron_James.csv',
+    labelStyle={'display': 'inline-block'},
+    id = 'subject_options'
 )], id='subject'),
+
+
+
 
     # creates divs for images
     html.Div([
+        html.H4('Current Matches:'),
         html.Div([
             html.Img(id='img1'), html.Figcaption(id='name1'),
             html.Figcaption(id='sim1')
@@ -110,6 +139,7 @@ app.layout = html.Div([
             ], id='result8', className = 'result8'),
             ],
             className = 'box'),
+
 
 # slider
 
@@ -204,9 +234,9 @@ def update_output(threshold, similarity, names, match):
         if match[0]:
             return {"border":"10px #A6CA45 solid"}, names[0], str(round(similarity[0], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[0], str(round(similarity[0], 3))
+            return {"border":"10px white solid"}, names[0], str(round(similarity[0], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[0], str(round(similarity[0], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[0], str(round(similarity[0], 3))
 
 #threshold image 2
 @app.callback([Output('img2', 'style'),Output('name2', 'children'), Output('sim2', 'children')],
@@ -216,9 +246,9 @@ def update_output(threshold, similarity, names, match):
         if match[1]:
             return {"border":"10px #A6CA45 solid"}, names[1], str(round(similarity[1], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[1], str(round(similarity[1], 3))
+            return {"border":"10px white solid"}, names[1], str(round(similarity[1], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[1], str(round(similarity[1], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[1], str(round(similarity[1], 3))
 
 #threshold image 3
 @app.callback([Output('img3', 'style'),Output('name3', 'children'), Output('sim3', 'children')],
@@ -228,9 +258,9 @@ def update_output(threshold, similarity, names, match):
         if match[2]:
             return {"border":"10px #A6CA45 solid"}, names[2], str(round(similarity[2], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[2], str(round(similarity[2], 3))
+            return {"border":"10px white solid"}, names[2], str(round(similarity[2], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[2], str(round(similarity[2], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[2], str(round(similarity[2], 3))
 
 #threshold image 4
 @app.callback([Output('img4', 'style'),Output('name4', 'children'), Output('sim4', 'children')],
@@ -240,9 +270,9 @@ def update_output(threshold, similarity, names, match):
         if match[3]:
             return {"border":"10px #A6CA45 solid"}, names[3], str(round(similarity[3], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[3], str(round(similarity[3], 3))
+            return {"border":"10px white solid"}, names[3], str(round(similarity[3], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[3], str(round(similarity[3], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[3], str(round(similarity[3], 3))
 
 #threshold image 5
 @app.callback([Output('img5', 'style'),Output('name5', 'children'), Output('sim5', 'children')],
@@ -252,21 +282,22 @@ def update_output(threshold, similarity, names, match):
         if match[4]:
             return {"border":"10px #A6CA45 solid"}, names[4], str(round(similarity[4], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[4], str(round(similarity[4], 3))
+            return {"border":"10px white solid"}, names[4], str(round(similarity[4], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[4], str(round(similarity[4], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[4], str(round(similarity[4], 3))
 
 #threshold image 6
 @app.callback([Output('img6', 'style'),Output('name6', 'children'), Output('sim6','children')],
-    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), Input('current_data_names', 'children'), Input('current_match_values', 'children')])
+    [Input('threshold-slider', 'value'), Input('current_data_similarity', 'children'), 
+    Input('current_data_names', 'children'), Input('current_match_values', 'children')])
 def update_output(threshold, similarity, names, match):
     if similarity[5] >= threshold:
         if match[5]:
             return {"border":"10px #A6CA45 solid"}, names[5], str(round(similarity[5], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[5], str(round(similarity[5], 3))
+            return {"border":"10px white solid"}, names[5], str(round(similarity[5], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[5], str(round(similarity[5], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[5], str(round(similarity[5], 3))
 
 #threshold image 7
 @app.callback([Output('img7', 'style'),Output('name7', 'children'), Output('sim7', 'children')],
@@ -276,9 +307,9 @@ def update_output(threshold, similarity, names, match):
         if match[6]:
             return {"border":"10px #A6CA45 solid"}, names[6], str(round(similarity[6], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[6], str(round(similarity[6], 3))
+            return {"border":"10px white solid"}, names[6], str(round(similarity[6], 3))
     else:
-        return {"border":"10px black solid", "opacity": "0.2"}, names[6], str(round(similarity[6], 3))
+        return {"border":"10px white solid", "opacity": "0.2"}, names[6], str(round(similarity[6], 3))
 
 #threshold image 8
 @app.callback([Output('img8', 'style'),Output('name8', 'children'), Output('sim8', 'children')],
@@ -288,7 +319,7 @@ def update_output(threshold, similarity, names, match):
         if match[7]:
             return {"border":"10px #A6CA45 solid"}, names[7], str(round(similarity[7], 3))
         else:
-            return {"border":"10px #D34640 solid"}, names[7], str(round(similarity[7], 3))
+            return {"border":"10px white solid"}, names[7], str(round(similarity[7], 3))
     else:
         return {"border":"10px black solid", "opacity": "0.2"}, names[7], str(round(similarity[7], 3))
 
@@ -302,4 +333,5 @@ def update_output(value):
 
 if __name__ == '__main__':
     port = os.environ.get('PORT') or 8035
-    app.run_server(port=port)
+   # debug = 'DYNO' not in os.environ
+    app.run_server(port=port, debug=debug)
